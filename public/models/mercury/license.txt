@@ -1,0 +1,11 @@
+Model Information:
+* title:	Planet Mercury tactile model for the blind
+* source:	https://sketchfab.com/3d-models/planet-mercury-tactile-model-for-the-blind-2f9197063e9a457c9a099c1d2252067b
+* author:	Astronomical Observatory - UV (https://sketchfab.com/ameliaortizgil)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Planet Mercury tactile model for the blind" (https://sketchfab.com/3d-models/planet-mercury-tactile-model-for-the-blind-2f9197063e9a457c9a099c1d2252067b) by Astronomical Observatory - UV (https://sketchfab.com/ameliaortizgil) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

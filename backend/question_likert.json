@@ -1,0 +1,384 @@
+{
+  "questionnaire": [
+    {
+      "id": 21,
+      "text": "When I see someone else succeed, I feel genuinely happy for them.",
+      "instruction": "Rate how well this statement describes your typical reaction.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Not at all like me",
+        "maxLabel": "Very much like me"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Envy/Resentment", "dP": -0.4, "dA": 0.2, "dD": -0.2},
+        {"score": 2, "emotion": "Neutral", "dP": -0.1, "dA": 0.0, "dD": 0.0},
+        {"score": 3, "emotion": "Mild Empathy", "dP": 0.2, "dA": 0.0, "dD": 0.0},
+        {"score": 4, "emotion": "Empathy", "dP": 0.4, "dA": 0.1, "dD": 0.1},
+        {"score": 5, "emotion": "Strong Empathy/Joy", "dP": 0.6, "dA": 0.2, "dD": 0.2}
+      ]
+    },
+    {
+      "id": 22,
+      "text": "Unexpected loud noises, like a car backfiring, startle me and make me feel uneasy.",
+      "instruction": "Rate the intensity of your reaction.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Very Slight",
+        "maxLabel": "Extreme"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Calm", "dP": 0.0, "dA": 0.1, "dD": 0.1},
+        {"score": 2, "emotion": "Slightly Alert", "dP": -0.1, "dA": 0.2, "dD": 0.0},
+        {"score": 3, "emotion": "Startled", "dP": -0.2, "dA": 0.4, "dD": -0.2},
+        {"score": 4, "emotion": "Anxious", "dP": -0.3, "dA": 0.5, "dD": -0.3},
+        {"score": 5, "emotion": "Fear", "dP": -0.5, "dA": 0.6, "dD": -0.5}
+      ]
+    },
+    {
+      "id": 23,
+      "text": "I feel a sense of control and agency in directing the course of my life.",
+      "instruction": "Rate your agreement with this statement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree",
+        "maxLabel": "Strongly Agree"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Helplessness", "dP": -0.4, "dA": -0.2, "dD": -0.6},
+        {"score": 2, "emotion": "Low Control", "dP": -0.2, "dA": 0.0, "dD": -0.3},
+        {"score": 3, "emotion": "Neutral", "dP": 0.0, "dA": 0.0, "dD": 0.0},
+        {"score": 4, "emotion": "Confident", "dP": 0.2, "dA": 0.1, "dD": 0.4},
+        {"score": 5, "emotion": "Highly Dominant", "dP": 0.3, "dA": 0.2, "dD": 0.6}
+      ]
+    },
+    {
+      "id": 24,
+      "text": "When I have to wait for something I really want, I become impatient and frustrated.",
+      "instruction": "Rate how well this describes you.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Not at all",
+        "maxLabel": "Very Accurate"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Patience", "dP": 0.1, "dA": -0.3, "dD": 0.1},
+        {"score": 2, "emotion": "Mild Impatience", "dP": -0.1, "dA": 0.1, "dD": -0.1},
+        {"score": 3, "emotion": "Neutral", "dP": -0.2, "dA": 0.3, "dD": 0.0},
+        {"score": 4, "emotion": "Impatient", "dP": -0.3, "dA": 0.4, "dD": -0.2},
+        {"score": 5, "emotion": "Frustrated/Anger", "dP": -0.5, "dA": 0.5, "dD": 0.1}
+      ]
+    },
+    {
+      "id": 25,
+      "text": "Being in a vibrant, crowded social environment (like a party or concert) is energizing and fun for me.",
+      "instruction": "Rate your agreement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree",
+        "maxLabel": "Strongly Agree"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Social Anxiety", "dP": -0.3, "dA": 0.3, "dD": -0.4},
+        {"score": 2, "emotion": "Discomfort", "dP": -0.1, "dA": 0.2, "dD": -0.2},
+        {"score": 3, "emotion": "Neutral", "dP": 0.1, "dA": 0.3, "dD": 0.0},
+        {"score": 4, "emotion": "Enjoyment", "dP": 0.4, "dA": 0.5, "dD": 0.2},
+        {"score": 5, "emotion": "Excitement/Joy", "dP": 0.6, "dA": 0.6, "dD": 0.3}
+      ]
+    },
+    {
+      "id": 26,
+      "text": "I often reflect on past decisions and wonder, 'What if I had chosen differently?'",
+      "instruction": "Rate how frequently or intensely you experience this.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Rarely/Never",
+        "maxLabel": "Very Often/Intensely"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Content", "dP": 0.1, "dA": -0.1, "dD": 0.2},
+        {"score": 2, "emotion": "Mild Reflection", "dP": 0.0, "dA": 0.1, "dD": 0.0},
+        {"score": 3, "emotion": "Neutral", "dP": -0.1, "dA": 0.2, "dD": -0.1},
+        {"score": 4, "emotion": "Regretful", "dP": -0.3, "dA": 0.3, "dD": -0.3},
+        {"score": 5, "emotion": "Pronounced Regret", "dP": -0.5, "dA": 0.4, "dD": -0.5}
+      ]
+    },
+    {
+      "id": 27,
+      "text": "I feel a strong sense of duty and responsibility to do the 'right thing', even when it's difficult.",
+      "instruction": "Rate your agreement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree",
+        "maxLabel": "Strongly Agree"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Low Conscientiousness", "dP": 0.0, "dA": -0.2, "dD": -0.2},
+        {"score": 2, "emotion": "Somewhat", "dP": 0.1, "dA": 0.0, "dD": 0.1},
+        {"score": 3, "emotion": "Neutral", "dP": 0.2, "dA": 0.1, "dD": 0.2},
+        {"score": 4, "emotion": "Dutiful", "dP": 0.3, "dA": 0.2, "dD": 0.3},
+        {"score": 5, "emotion": "Highly Conscientious", "dP": 0.4, "dA": 0.3, "dD": 0.4}
+      ]
+    },
+    {
+      "id": 28,
+      "text": "When I see a vulnerable person or animal, I feel a strong desire to protect and care for them.",
+      "instruction": "Rate the strength of this feeling.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Very Weak",
+        "maxLabel": "Very Strong"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Detached", "dP": 0.0, "dA": -0.2, "dD": 0.0},
+        {"score": 2, "emotion": "Mild Concern", "dP": 0.1, "dA": 0.0, "dD": 0.1},
+        {"score": 3, "emotion": "Compassionate", "dP": 0.3, "dA": 0.2, "dD": 0.2},
+        {"score": 4, "emotion": "Protective", "dP": 0.4, "dA": 0.3, "dD": 0.4},
+        {"score": 5, "emotion": "Nurturing/Empathy", "dP": 0.5, "dA": 0.4, "dD": 0.3}
+      ]
+    },
+    {
+      "id": 29,
+      "text": "I find myself worrying about things that might go wrong in the future.",
+      "instruction": "Rate how characteristic this is of you.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Not at all",
+        "maxLabel": "Extremely Characteristic"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Present-Focused/Calm", "dP": 0.2, "dA": -0.2, "dD": 0.2},
+        {"score": 2, "emotion": "Rarely", "dP": 0.0, "dA": 0.1, "dD": 0.0},
+        {"score": 3, "emotion": "Sometimes", "dP": -0.2, "dA": 0.3, "dD": -0.2},
+        {"score": 4, "emotion": "Often", "dP": -0.4, "dA": 0.5, "dD": -0.3},
+        {"score": 5, "emotion": "Chronic Anxiety", "dP": -0.6, "dA": 0.6, "dD": -0.5}
+      ]
+    },
+    {
+      "id": 30,
+      "text": "I am motivated by opportunities to gain recognition, status, or wealth.",
+      "instruction": "Rate your agreement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree",
+        "maxLabel": "Strongly Agree"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Content", "dP": 0.1, "dA": -0.1, "dD": 0.0},
+        {"score": 2, "emotion": "Slightly", "dP": 0.1, "dA": 0.2, "dD": 0.2},
+        {"score": 3, "emotion": "Neutral", "dP": 0.2, "dA": 0.3, "dD": 0.3},
+        {"score": 4, "emotion": "Ambitious", "dP": 0.3, "dA": 0.4, "dD": 0.5},
+        {"score": 5, "emotion": "Greed/Driven", "dP": 0.2, "dA": 0.6, "dD": 0.6}
+      ]
+    },
+    {
+      "id": 31,
+      "text": "I feel relaxed and at ease in quiet, solitary environments.",
+      "instruction": "Rate your agreement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree",
+        "maxLabel": "Strongly Agree"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Restless/Bored", "dP": -0.2, "dA": 0.2, "dD": -0.1},
+        {"score": 2, "emotion": "Slightly Uncomfortable", "dP": -0.1, "dA": 0.1, "dD": 0.0},
+        {"score": 3, "emotion": "Neutral", "dP": 0.1, "dA": -0.1, "dD": 0.1},
+        {"score": 4, "emotion": "Calm", "dP": 0.3, "dA": -0.3, "dD": 0.2},
+        {"score": 5, "emotion": "Very Peaceful", "dP": 0.5, "dA": -0.5, "dD": 0.3}
+      ]
+    },
+    {
+      "id": 32,
+      "text": "I easily trust others until they give me a reason not to.",
+      "instruction": "Rate how well this describes you.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Not at all (I am skeptical)",
+        "maxLabel": "Very much (I am trusting)"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Distrust", "dP": -0.2, "dA": 0.1, "dD": -0.1},
+        {"score": 2, "emotion": "Cautious", "dP": -0.1, "dA": 0.0, "dD": 0.0},
+        {"score": 3, "emotion": "Neutral", "dP": 0.1, "dA": -0.1, "dD": 0.1},
+        {"score": 4, "emotion": "Trusting", "dP": 0.3, "dA": -0.2, "dD": 0.2},
+        {"score": 5, "emotion": "Highly Trusting", "dP": 0.4, "dA": -0.3, "dD": 0.3}
+      ]
+    },
+    {
+      "id": 33,
+      "text": "I enjoy taking risks and engaging in thrilling or adventurous activities.",
+      "instruction": "Rate your agreement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree",
+        "maxLabel": "Strongly Agree"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Risk-Averse", "dP": -0.1, "dA": -0.2, "dD": -0.2},
+        {"score": 2, "emotion": "Slightly", "dP": 0.1, "dA": 0.2, "dD": 0.1},
+        {"score": 3, "emotion": "Neutral", "dP": 0.2, "dA": 0.4, "dD": 0.3},
+        {"score": 4, "emotion": "Adventurous", "dP": 0.4, "dA": 0.6, "dD": 0.5},
+        {"score": 5, "emotion": "Thrill-Seeking", "dP": 0.5, "dA": 0.7, "dD": 0.6}
+      ]
+    },
+    {
+      "id": 34,
+      "text": "Criticism, even when constructive, feels personal and painful to me.",
+      "instruction": "Rate how strongly you react.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Not painful at all",
+        "maxLabel": "Extremely painful"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Resilient/Open", "dP": 0.0, "dA": 0.0, "dD": 0.2},
+        {"score": 2, "emotion": "Slightly Uncomfortable", "dP": -0.1, "dA": 0.1, "dD": 0.0},
+        {"score": 3, "emotion": "Neutral", "dP": -0.2, "dA": 0.2, "dD": -0.1},
+        {"score": 4, "emotion": "Sensitive", "dP": -0.4, "dA": 0.4, "dD": -0.3},
+        {"score": 5, "emotion": "Highly Sensitive", "dP": -0.6, "dA": 0.5, "dD": -0.5}
+      ]
+    },
+    {
+      "id": 35,
+      "text": "I find deep satisfaction in completing tasks to a high standard of quality.",
+      "instruction": "Rate your agreement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree",
+        "maxLabel": "Strongly Agree"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Apathetic", "dP": -0.1, "dA": -0.3, "dD": -0.2},
+        {"score": 2, "emotion": "Somewhat", "dP": 0.1, "dA": 0.1, "dD": 0.1},
+        {"score": 3, "emotion": "Neutral", "dP": 0.2, "dA": 0.2, "dD": 0.2},
+        {"score": 4, "emotion": "Conscientious", "dP": 0.4, "dA": 0.3, "dD": 0.4},
+        {"score": 5, "emotion": "High Standards", "dP": 0.5, "dA": 0.4, "dD": 0.5}
+      ]
+    },
+    {
+      "id": 36,
+      "text": "I feel energized and optimistic at the start of a new day.",
+      "instruction": "Rate how typically you feel this way.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Very Rarely",
+        "maxLabel": "Almost Always"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Dread/Anxiety", "dP": -0.4, "dA": 0.2, "dD": -0.3},
+        {"score": 2, "emotion": "Neutral", "dP": 0.0, "dA": 0.0, "dD": 0.0},
+        {"score": 3, "emotion": "Mildly Positive", "dP": 0.2, "dA": 0.2, "dD": 0.1},
+        {"score": 4, "emotion": "Energetic", "dP": 0.4, "dA": 0.4, "dD": 0.3},
+        {"score": 5, "emotion": "Highly Energetic/Joy", "dP": 0.6, "dA": 0.5, "dD": 0.4}
+      ]
+    },
+    {
+      "id": 37,
+      "text": "I prefer to go with the flow and adapt to situations rather than need to be in charge.",
+      "instruction": "Rate your agreement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree (I need control)",
+        "maxLabel": "Strongly Agree (I am adaptable)"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "High Dominance", "dP": 0.1, "dA": 0.2, "dD": 0.5},
+        {"score": 2, "emotion": "Prefer Control", "dP": 0.0, "dA": 0.1, "dD": 0.3},
+        {"score": 3, "emotion": "Balanced", "dP": 0.0, "dA": 0.0, "dD": 0.0},
+        {"score": 4, "emotion": "Adaptable", "dP": 0.1, "dA": -0.1, "dD": -0.2},
+        {"score": 5, "emotion": "Submissive/Go-with-flow", "dP": 0.2, "dA": -0.3, "dD": -0.4}
+      ]
+    },
+    {
+      "id": 38,
+      "text": "I am easily moved to tears by emotional scenes in movies, books, or real life.",
+      "instruction": "Rate how easily you are moved.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Very Rarely",
+        "maxLabel": "Very Easily"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Detached", "dP": 0.0, "dA": -0.1, "dD": 0.0},
+        {"score": 2, "emotion": "Rarely", "dP": 0.1, "dA": 0.1, "dD": 0.0},
+        {"score": 3, "emotion": "Sometimes", "dP": 0.0, "dA": 0.2, "dD": -0.1},
+        {"score": 4, "emotion": "Often", "dP": -0.2, "dA": 0.3, "dD": -0.2},
+        {"score": 5, "emotion": "Very Empathetic", "dP": -0.3, "dA": 0.4, "dD": -0.3}
+      ]
+    },
+    {
+      "id": 39,
+      "text": "I find it difficult to make decisions, often worrying about making the wrong choice.",
+      "instruction": "Rate how characteristic this is of you.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Not at all (I am decisive)",
+        "maxLabel": "Extremely (I am indecisive)"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Decisive", "dP": 0.1, "dA": 0.0, "dD": 0.4},
+        {"score": 2, "emotion": "Slightly", "dP": 0.0, "dA": 0.1, "dD": 0.1},
+        {"score": 3, "emotion": "Neutral", "dP": -0.1, "dA": 0.2, "dD": -0.1},
+        {"score": 4, "emotion": "Indecisive", "dP": -0.3, "dA": 0.4, "dD": -0.3},
+        {"score": 5, "emotion": "Highly Anxious", "dP": -0.5, "dA": 0.5, "dD": -0.5}
+      ]
+    },
+{
+      "id": 40,
+      "text": "I actively seek out new ideas, experiences, and perspectives.",
+      "instruction": "Rate your agreement.",
+      "type": "likert",
+      "scale": {
+        "min": 1,
+        "max": 5,
+        "minLabel": "Strongly Disagree",
+        "maxLabel": "Strongly Agree"
+      },
+      "mapping": [
+        {"score": 1, "emotion": "Closed", "dP": -0.1, "dA": -0.3, "dD": -0.1},
+        {"score": 2, "emotion": "Slightly", "dP": 0.1, "dA": 0.1, "dD": 0.1},
+        {"score": 3, "emotion": "Neutral", "dP": 0.2, "dA": 0.3, "dD": 0.2},
+        {"score": 4, "emotion": "Curious", "dP": 0.4, "dA": 0.5, "dD": 0.3},
+        {"score": 5, "emotion": "Highly Open", "dP": 0.5, "dA": 0.6, "dD": 0.4}
+      ]
+    }
+  ]
+}

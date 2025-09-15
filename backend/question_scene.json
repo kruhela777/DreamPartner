@@ -1,0 +1,764 @@
+{
+  "questionnaire": [
+    {
+      "id": 1,
+      "text": "You are giving a presentation to a large audience. Right in the middle, you notice several people in the back row openly scrolling on their phones and not paying attention. You feel:",
+      "options": [
+        {
+          "id": "1a",
+          "text": "Furious and disrespected.",
+          "emotion": "Anger",
+          "dP": -0.3,
+          "dA": 0.4,
+          "dD": 0.3
+        },
+        {
+          "id": "1b",
+          "text": "Anxious and your confidence drops.",
+          "emotion": "Anxiety",
+          "dP": -0.4,
+          "dA": 0.5,
+          "dD": -0.3
+        },
+        {
+          "id": "1c",
+          "text": "A little disappointed, but you focus on the people who are engaged.",
+          "emotion": "Patience",
+          "dP": -0.1,
+          "dA": -0.1,
+          "dD": 0.2
+        },
+        {
+          "id": "1d",
+          "text": "Unfazed. It's their loss, and you continue confidently.",
+          "emotion": "Confidence (High Dominance)",
+          "dP": 0.1,
+          "dA": 0.0,
+          "dD": 0.4
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "A close friend calls you, crying, because they are going through a difficult breakup. Your primary reaction is:",
+      "options": [
+        {
+          "id": "2a",
+          "text": "A strong desire to help and comfort them.",
+          "emotion": "Empathy",
+          "dP": 0.2,
+          "dA": 0.1,
+          "dD": 0.1
+        },
+        {
+          "id": "2b",
+          "text": "A sense of sadness and heaviness yourself.",
+          "emotion": "Sadness",
+          "dP": -0.3,
+          "dA": -0.2,
+          "dD": -0.2
+        },
+        {
+          "id": "2c",
+          "text": "Slightly uncomfortable and unsure of what to say.",
+          "emotion": "Anxiety",
+          "dP": -0.2,
+          "dA": 0.2,
+          "dD": -0.3
+        },
+        {
+          "id": "2d",
+          "text": "You analyze the situation and offer practical advice.",
+          "emotion": "Calm/Neutral",
+          "dP": 0.0,
+          "dA": 0.0,
+          "dD": 0.1
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "You unexpectedly receive a significant bonus at work. Your immediate feeling is:",
+      "options": [
+        {
+          "id": "3a",
+          "text": "Pure excitement and joy!",
+          "emotion": "Happy/Joy",
+          "dP": 0.5,
+          "dA": 0.4,
+          "dD": 0.3
+        },
+        {
+          "id": "3b",
+          "text": "Relief and a sense of security.",
+          "emotion": "Trust/Calm",
+          "dP": 0.4,
+          "dA": -0.2,
+          "dD": 0.2
+        },
+        {
+          "id": "3c",
+          "text": "You immediately start planning how to spend or invest it all.",
+          "emotion": "Greed/Excitement",
+          "dP": 0.3,
+          "dA": 0.5,
+          "dD": 0.4
+        },
+        {
+          "id": "3d",
+          "text": "You wonder if you truly deserved it or if there was a mistake.",
+          "emotion": "Regret/Guilt",
+          "dP": -0.1,
+          "dA": 0.2,
+          "dD": -0.2
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "You see someone being treated unfairly in a public place. You are most likely to:",
+      "options": [
+        {
+          "id": "4a",
+          "text": "Feel angry and confront the person responsible.",
+          "emotion": "Anger",
+          "dP": -0.3,
+          "dA": 0.4,
+          "dD": 0.4
+        },
+        {
+          "id": "4b",
+          "text": "Feel bad for the victim but hesitate to get involved.",
+          "emotion": "Anxiety/Sadness",
+          "dP": -0.3,
+          "dA": 0.2,
+          "dD": -0.3
+        },
+        {
+          "id": "4c",
+          "text": "Go over to the victim afterwards to offer support and help.",
+          "emotion": "Empathy",
+          "dP": 0.1,
+          "dA": 0.1,
+          "dD": 0.0
+        },
+        {
+          "id": "4d",
+          "text": "Stay calm and assess if intervention is needed or safe.",
+          "emotion": "Patience",
+          "dP": 0.0,
+          "dA": -0.2,
+          "dD": 0.1
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "You make a small mistake at work that causes a minor inconvenience for your team. After realizing it, you:",
+      "options": [
+        {
+          "id": "5a",
+          "text": "Feel intensely guilty and apologize repeatedly.",
+          "emotion": "Regret/Guilt",
+          "dP": -0.4,
+          "dA": 0.3,
+          "dD": -0.4
+        },
+        {
+          "id": "5b",
+          "text": "Get frustrated and irritated with yourself.",
+          "emotion": "Anger (at self)",
+          "dP": -0.3,
+          "dA": 0.3,
+          "dD": -0.1
+        },
+        {
+          "id": "5c",
+          "text": "Quickly correct the mistake and inform the team, focusing on the solution.",
+          "emotion": "Confidence",
+          "dP": 0.0,
+          "dA": 0.1,
+          "dD": 0.3
+        },
+        {
+          "id": "5d",
+          "text": "Worry about what your boss and colleagues think of you now.",
+          "emotion": "Anxiety",
+          "dP": -0.4,
+          "dA": 0.4,
+          "dD": -0.4
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "text": "You are stuck in a terribly long and slow-moving queue. How do you react?",
+      "options": [
+        {
+          "id": "6a",
+          "text": "Get visibly irritated and complain to those around you.",
+          "emotion": "Anger",
+          "dP": -0.4,
+          "dA": 0.3,
+          "dD": 0.1
+        },
+        {
+          "id": "6b",
+          "text": "Feel restless and keep checking the time anxiously.",
+          "emotion": "Anxiety",
+          "dP": -0.3,
+          "dA": 0.4,
+          "dD": -0.2
+        },
+        {
+          "id": "6c",
+          "text": "Accept it calmly, maybe use the time to people-watch or check your phone.",
+          "emotion": "Patience",
+          "dP": 0.0,
+          "dA": -0.3,
+          "dD": 0.0
+        },
+        {
+          "id": "6d",
+          "text": "Feel a sense of injustice that others are being served faster.",
+          "emotion": "Greed/Resentment",
+          "dP": -0.2,
+          "dA": 0.2,
+          "dD": -0.1
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "text": "A friend achieves a major goal that you have also been striving for. What is your gut response?",
+      "options": [
+        {
+          "id": "7a",
+          "text": "Genuine happiness and excitement for them.",
+          "emotion": "Happy/Joy (Empathetic)",
+          "dP": 0.4,
+          "dA": 0.3,
+          "dD": 0.2
+        },
+        {
+          "id": "7b",
+          "text": "A pang of envy and frustration that it wasn't you.",
+          "emotion": "Greed/Envy",
+          "dP": -0.3,
+          "dA": 0.3,
+          "dD": -0.2
+        },
+        {
+          "id": "7c",
+          "text": "Motivation to work harder and achieve your own goal.",
+          "emotion": "Determination (High Dominance)",
+          "dP": 0.1,
+          "dA": 0.3,
+          "dD": 0.4
+        },
+        {
+          "id": "7d",
+          "text": "Insecurity and doubt about your own abilities.",
+          "emotion": "Sadness/Anxiety",
+          "dP": -0.4,
+          "dA": 0.2,
+          "dD": -0.4
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "text": "You are about to try a exotic and unfamiliar food for the first time.",
+      "options": [
+        {
+          "id": "8a",
+          "text": "Thrilled and eager for the new experience.",
+          "emotion": "Happy/Excitement",
+          "dP": 0.4,
+          "dA": 0.5,
+          "dD": 0.2
+        },
+        {
+          "id": "8b",
+          "text": "Cautious and slightly nervous about how it will taste.",
+          "emotion": "Anxiety",
+          "dP": -0.1,
+          "dA": 0.3,
+          "dD": -0.1
+        },
+        {
+          "id": "8c",
+          "text": "Disinterested and would rather stick to what you know.",
+          "emotion": "Boredom (Low Arousal)",
+          "dP": -0.2,
+          "dA": -0.4,
+          "dD": 0.0
+        },
+        {
+          "id": "8d",
+          "text": "Confident that you'll handle it, whatever it is.",
+          "emotion": "Confidence",
+          "dP": 0.2,
+          "dA": 0.1,
+          "dD": 0.4
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "text": "You are entrusted with a serious secret by a friend.",
+      "options": [
+        {
+          "id": "9a",
+          "text": "Feel trusted and honored by their confidence.",
+          "emotion": "Trust/Empathy",
+          "dP": 0.3,
+          "dA": 0.0,
+          "dD": 0.2
+        },
+        {
+          "id": "9b",
+          "text": "Feel the weight of the responsibility and worry about slipping up.",
+          "emotion": "Anxiety",
+          "dP": -0.1,
+          "dA": 0.3,
+          "dD": -0.3
+        },
+        {
+          "id": "9c",
+          "text": "Feel a sense of power or superiority from knowing it.",
+          "emotion": "Greed/Dominance",
+          "dP": 0.1,
+          "dA": 0.2,
+          "dD": 0.4
+        },
+        {
+          "id": "9d",
+          "text": "Feel indifferent; it's just a piece of information.",
+          "emotion": "Neutral",
+          "dP": 0.0,
+          "dA": 0.0,
+          "dD": 0.0
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "text": "You are alone in a quiet natural setting, like a forest or a beach at sunrise.",
+      "options": [
+        {
+          "id": "10a",
+          "text": "A deep sense of peace and contentment.",
+          "emotion": "Patience/Calm",
+          "dP": 0.4,
+          "dA": -0.4,
+          "dD": 0.1
+        },
+        {
+          "id": "10b",
+          "text": "Awe and wonder at the beauty of it all.",
+          "emotion": "Happy/Awe",
+          "dP": 0.5,
+          "dA": 0.1,
+          "dD": -0.1
+        },
+        {
+          "id": "10c",
+          "text": "Loneliness or a slight melancholy.",
+          "emotion": "Sadness",
+          "dP": -0.3,
+          "dA": -0.3,
+          "dD": -0.2
+        },
+        {
+          "id": "10d",
+          "text": "Restlessness and a desire to be doing something more active.",
+          "emotion": "Boredom/Anxiety",
+          "dP": -0.2,
+          "dA": 0.2,
+          "dD": -0.1
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "text": "You are blamed for a problem at work that was categorically not your fault.",
+      "options": [
+        {
+          "id": "11a",
+          "text": "Outrage and a strong urge to defend yourself and prove your innocence.",
+          "emotion": "Anger",
+          "dP": -0.5,
+          "dA": 0.5,
+          "dD": 0.4
+        },
+        {
+          "id": "11b",
+          "text": "Panic and fear about the potential consequences.",
+          "emotion": "Anxiety/Fear",
+          "dP": -0.5,
+          "dA": 0.6,
+          "dD": -0.5
+        },
+        {
+          "id": "11c",
+          "text": "Deep hurt and disappointment that you were accused.",
+          "emotion": "Sadness",
+          "dP": -0.4,
+          "dA": -0.2,
+          "dD": -0.4
+        },
+        {
+          "id": "11d",
+          "text": "Calmly and logically gather evidence to clear your name.",
+          "emotion": "Confidence (High Dominance)",
+          "dP": -0.1,
+          "dA": 0.0,
+          "dD": 0.5
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "text": "You find a wallet on the street containing a significant amount of cash and an ID.",
+      "options": [
+        {
+          "id": "12a",
+          "text": "Feel excited by your luck and consider keeping it.",
+          "emotion": "Greed",
+          "dP": 0.2,
+          "dA": 0.4,
+          "dD": 0.3
+        },
+        {
+          "id": "12b",
+          "text": "Feel anxious about the responsibility and worry about doing the right thing.",
+          "emotion": "Anxiety",
+          "dP": -0.2,
+          "dA": 0.3,
+          "dD": -0.2
+        },
+        {
+          "id": "12c",
+          "text": "Feel empathy for the person who lost it and are determined to return it.",
+          "emotion": "Empathy",
+          "dP": 0.3,
+          "dA": 0.2,
+          "dD": 0.2
+        },
+        {
+          "id": "12d",
+          "text": "Feel it's a minor inconvenience you have to deal with.",
+          "emotion": "Neutral/Annoyance",
+          "dP": -0.1,
+          "dA": 0.0,
+          "dD": 0.0
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "text": "You are about to step onto a stage to perform or give a speech to a large crowd.",
+      "options": [
+        {
+          "id": "13a",
+          "text": "A rush of adrenaline and excitement.",
+          "emotion": "Happy/Excitement",
+          "dP": 0.3,
+          "dA": 0.6,
+          "dD": 0.3
+        },
+        {
+          "id": "13b",
+          "text": "Intense nervousness and dread.",
+          "emotion": "Anxiety",
+          "dP": -0.4,
+          "dA": 0.5,
+          "dD": -0.4
+        },
+        {
+          "id": "13c",
+          "text": "Focused confidence and readiness.",
+          "emotion": "Confidence",
+          "dP": 0.2,
+          "dA": 0.2,
+          "dD": 0.5
+        },
+        {
+          "id": "13d",
+          "text": "A desire to be anywhere else.",
+          "emotion": "Sadness/Anxiety",
+          "dP": -0.4,
+          "dA": 0.1,
+          "dD": -0.5
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "text": "You witness a stranger spontaneously helping another stranger in need.",
+      "options": [
+        {
+          "id": "14a",
+          "text": "A warm feeling of faith in humanity.",
+          "emotion": "Trust/Empathy",
+          "dP": 0.4,
+          "dA": 0.0,
+          "dD": 0.1
+        },
+        {
+          "id": "14b",
+          "text": "Happy and inspired by their kindness.",
+          "emotion": "Happy/Joy",
+          "dP": 0.5,
+          "dA": 0.2,
+          "dD": 0.1
+        },
+        {
+          "id": "14c",
+          "text": "Indifferent; it doesn't really affect you.",
+          "emotion": "Neutral",
+          "dP": 0.0,
+          "dA": 0.0,
+          "dD": 0.0
+        },
+        {
+          "id": "14d",
+          "text": "Slightly skeptical about their motives.",
+          "emotion": "Distrust (Low Agreeableness)",
+          "dP": -0.1,
+          "dA": 0.0,
+          "dD": 0.0
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "text": "You are learning a new, complex skill and you keep failing at the first few attempts.",
+      "options": [
+        {
+          "id": "15a",
+          "text": "Frustrated and angry, wanting to give up.",
+          "emotion": "Anger",
+          "dP": -0.4,
+          "dA": 0.3,
+          "dD": -0.2
+        },
+        {
+          "id": "15b",
+          "text": "Discouraged and sad, feeling like you're not good enough.",
+          "emotion": "Sadness",
+          "dP": -0.5,
+          "dA": -0.3,
+          "dD": -0.4
+        },
+        {
+          "id": "15c",
+          "text": "Even more determined to figure it out and master it.",
+          "emotion": "Determination (High Dominance)",
+          "dP": 0.1,
+          "dA": 0.4,
+          "dD": 0.5
+        },
+        {
+          "id": "15d",
+          "text": "Anxious about the time you're wasting and the potential for future failure.",
+          "emotion": "Anxiety",
+          "dP": -0.3,
+          "dA": 0.4,
+          "dD": -0.3
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "text": "You are offered a leadership role for an important project.",
+      "options": [
+        {
+          "id": "16a",
+          "text": "Eager and confident to take charge.",
+          "emotion": "Confidence (High Dominance)",
+          "dP": 0.3,
+          "dA": 0.3,
+          "dD": 0.5
+        },
+        {
+          "id": "16b",
+          "text": "Nervous about the responsibility but willing to try.",
+          "emotion": "Anxiety",
+          "dP": -0.1,
+          "dA": 0.4,
+          "dD": 0.1
+        },
+        {
+          "id": "16c",
+          "text": "Prefer to let someone else lead; you'd rather just contribute.",
+          "emotion": "Submissive (Low Dominance)",
+          "dP": 0.0,
+          "dA": -0.2,
+          "dD": -0.3
+        },
+        {
+          "id": "16d",
+          "text": "Excited about the recognition and opportunity for influence.",
+          "emotion": "Greed/Pride",
+          "dP": 0.3,
+          "dA": 0.4,
+          "dD": 0.4
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "text": "You hear a piece of music that you find incredibly moving.",
+      "options": [
+        {
+          "id": "17a",
+          "text": "A surge of joy and energy.",
+          "emotion": "Happy/Joy",
+          "dP": 0.5,
+          "dA": 0.4,
+          "dD": 0.2
+        },
+        {
+          "id": "17b",
+          "text": "A deep, peaceful, and reflective calm.",
+          "emotion": "Patience/Calm",
+          "dP": 0.4,
+          "dA": -0.3,
+          "dD": 0.0
+        },
+        {
+          "id": "17c",
+          "text": "A sense of nostalgia and perhaps sadness.",
+          "emotion": "Sadness",
+          "dP": -0.2,
+          "dA": -0.1,
+          "dD": -0.2
+        },
+        {
+          "id": "17d",
+          "text": "Feeling inspired and creative.",
+          "emotion": "Excitement (High Arousal)",
+          "dP": 0.3,
+          "dA": 0.5,
+          "dD": 0.3
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "text": "You realize you have accidentally offended a friend with a careless comment.",
+      "options": [
+        {
+          "id": "18a",
+          "text": "Immediate guilt and a need to apologize sincerely.",
+          "emotion": "Regret/Guilt",
+          "dP": -0.5,
+          "dA": 0.2,
+          "dD": -0.4
+        },
+        {
+          "id": "18b",
+          "text": "Defensiveness and frustration that they took it the wrong way.",
+          "emotion": "Anger",
+          "dP": -0.3,
+          "dA": 0.3,
+          "dD": 0.1
+        },
+        {
+          "id": "18c",
+          "text": "Anxiety about the state of your friendship.",
+          "emotion": "Anxiety",
+          "dP": -0.4,
+          "dA": 0.4,
+          "dD": -0.3
+        },
+        {
+          "id": "18d",
+          "text": "Empathy for their hurt feelings and a calm approach to discuss it.",
+          "emotion": "Empathy",
+          "dP": 0.0,
+          "dA": -0.1,
+          "dD": 0.1
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "text": "You are planning a detailed itinerary for a dream vacation.",
+      "options": [
+        {
+          "id": "19a",
+          "text": "Thrilled and buzzing with excitement.",
+          "emotion": "Happy/Excitement",
+          "dP": 0.6,
+          "dA": 0.5,
+          "dD": 0.2
+        },
+        {
+          "id": "19b",
+          "text": "Stressed about getting all the details perfect and within budget.",
+          "emotion": "Anxiety",
+          "dP": -0.2,
+          "dA": 0.4,
+          "dD": -0.1
+        },
+        {
+          "id": "19c",
+          "text": "Calm and methodical, enjoying the process of organization.",
+          "emotion": "Patience/Calm",
+          "dP": 0.2,
+          "dA": -0.2,
+          "dD": 0.3
+        },
+        {
+          "id": "19d",
+          "text": "Worried that something will go wrong and ruin the plans.",
+          "emotion": "Anxiety/Pessimism",
+          "dP": -0.3,
+          "dA": 0.3,
+          "dD": -0.3
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "text": "You are in a competitive situation (sports, games, debate) and you are losing badly.",
+      "options": [
+        {
+          "id": "20a",
+          "text": "Frustrated and angry, maybe wanting to quit.",
+          "emotion": "Anger",
+          "dP": -0.4,
+          "dA": 0.4,
+          "dD": -0.1
+        },
+        {
+          "id": "20b",
+          "text": "Resigned and sad, accepting defeat.",
+          "emotion": "Sadness",
+          "dP": -0.5,
+          "dA": -0.4,
+          "dD": -0.4
+        },
+        {
+          "id": "20c",
+          "text": "Even more competitive and determined to turn it around.",
+          "emotion": "Determination (High Dominance)",
+          "dP": 0.0,
+          "dA": 0.5,
+          "dD": 0.5
+        },
+        {
+          "id": "20d",
+          "text": "Anxious about looking foolish in front of others.",
+          "emotion": "Anxiety",
+          "dP": -0.4,
+          "dA": 0.3,
+          "dD": -0.5
+        }
+      ]
+    }
+  ]
+}

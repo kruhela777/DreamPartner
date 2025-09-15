@@ -1,0 +1,11 @@
+Model Information:
+* title:	Neptune
+* source:	https://sketchfab.com/3d-models/neptune-bbc9710348434903a3e9771976adaa10
+* author:	SunnyChen753/SW fan (https://sketchfab.com/sunnychen753)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Neptune" (https://sketchfab.com/3d-models/neptune-bbc9710348434903a3e9771976adaa10) by SunnyChen753/SW fan (https://sketchfab.com/sunnychen753) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

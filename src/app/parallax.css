@@ -1,0 +1,141 @@
+/* 🎨 Variables replaced with real values */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+section {
+  margin: 0;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #C0B3A0; /* scrub */
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.paralax {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: url("/background.jpg"); /* 🔗 from public folder */
+  background-size: cover;
+  background-position: center;
+}
+
+.paralax .layer {
+  position: absolute;
+  width: 400%;
+}
+
+.paralax .foreground {
+  height: 50%;
+  bottom: 0;
+  background: url("/foreground.png") repeat-x;
+  background-size: 25% 100%;
+  animation: slideshow 30s linear infinite;
+}
+
+.paralax .hills {
+  height: 40%;
+  bottom: 15%;
+  background: url("/hills.png") repeat-x;
+  background-size: 25% 100%;
+  animation: slideshow 60s linear infinite;
+}
+
+.paralax .rocks1 {
+  height: 35%;
+  bottom: 25%;
+  background: url("/rocks1.png") repeat-x;
+  background-size: 25% 100%;
+  animation: slideshow 120s linear infinite;
+}
+
+.paralax .rocks2 {
+  height: 40%;
+  bottom: 15%;
+  background: url("/rocks2.png") repeat-x;
+  background-size: 25% 100%;
+  animation: slideshow 240s linear infinite;
+}
+
+/* 🌌 Animations */
+@keyframes slideshow {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes dayToNight {
+  0%   { filter: hue-rotate(0deg) brightness(1); }
+  50%  { filter: hue-rotate(180deg) brightness(0.1); }
+  100% { filter: hue-rotate(0deg) brightness(1); }
+}
+
+/* 📌 Branding / Links */
+#link {
+  font-family: 'Roboto', sans-serif;
+  position: fixed;
+  bottom: 5%;
+  width: 100%;
+  text-align: center;
+}
+
+.img-url {
+  text-decoration: none;
+}
+
+.url {
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+a:link,
+a:visited,
+a:active {
+  color: white;
+}
+
+a:hover {
+  color: purple;
+}
+
+#small-logo {
+  width: 30px;
+  transform: translate(-10px, 12px);
+  opacity: 1;
+}
+
+/* 🔄 Versions */
+#versions {
+  font-family: 'Roboto', sans-serif;
+  position: fixed;
+  top: 5%;
+  width: 100%;
+  text-align: center;
+}
+
+.url-highlighted {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.url-normal {
+  opacity: 0.5;
+  text-decoration: none;
+}
+.cupid-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; /* above parallax */
+}
