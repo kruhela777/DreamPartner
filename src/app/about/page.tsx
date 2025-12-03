@@ -1,7 +1,8 @@
 "use client";
-import React, {useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+
 // --- Heart Cursor ---
 function HeartCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -60,8 +61,9 @@ function HeartCursor() {
     </div>
   );
 }
+
 // --- Pastel Wave SVG for bottom border ---
-const PastelWave = ({ className }) => (
+const PastelWave = ({ className }: { className?: string }) => (
   <svg
     className={className}
     viewBox="0 0 1440 160"
@@ -85,20 +87,38 @@ const PastelWave = ({ className }) => (
     ></path>
   </svg>
 );
-
-// --- Glowy Animated Floating Hearts ---
+// --- Glowy Animated Floating Hearts (client-only) ---
 const FloatingHearts = () => {
-  const [dims, setDims] = useState([typeof window !== "undefined" ? window.innerWidth : 1080, typeof window !== "undefined" ? window.innerHeight : 720]);
+  const [mounted, setMounted] = useState(false);
+  const [dims, setDims] = useState<[number, number]>([1080, 720]);
+
   useEffect(() => {
-    const set = () => setDims([window.innerWidth, window.innerHeight]);
-    set();
-    window.addEventListener("resize", set);
-    return () => window.removeEventListener("resize", set);
+    setMounted(true);
   }, []);
-  return (
-    <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
-      {[...Array(20)].map((_, i) => {
+
+  useEffect(() => {
+    if (!mounted) return;
+    const handleResize = () => setDims([window.innerWidth, window.innerHeight]);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [mounted]);
+
+  // Pre-generate random config once per mount to keep stable during this session
+  const hearts = React.useMemo(
+    () =>
+      [...Array(20)].map((_, i) => {
         const sz = 32 + Math.random() * 32;
+        const baseX = Math.random() * dims[0] * 0.92;
+        const scaleStart = 0.5 + Math.random() * 0.55;
+        const rotStart = Math.random() * 20 - 10;
+        const x1 = Math.random() * (dims[0] - sz);
+        const x2 = Math.random() * (dims[0] - sz);
+        const x3 = Math.random() * (dims[0] - sz);
+        const rot1 = Math.random() * 8 - 8;
+        const rot2 = Math.random() * 30;
+        const duration = 11 + Math.random() * 7;
+        const delay = Math.random() * 4.1;
         const color = [
           "rgba(255,180,222,0.38)",
           "rgba(255,212,235,0.45)",
@@ -107,99 +127,135 @@ const FloatingHearts = () => {
           "rgba(251,154,210,0.39)",
           "rgba(255,246,254,0.32)",
         ][i % 6];
-        return (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              left: Math.random() * dims[0] * 0.92,
-              fontSize: `${sz}px`,
-              color,
-              filter: `blur(${i % 2 ? 1.1 : 2.6}px) drop-shadow(0 0 20px #ffc2ee)`,
-              top: 0,
-            }}
-            initial={{
-              opacity: 0,
-              y: dims[1] + 50 + i * 14,
-              scale: 0.5 + Math.random() * 0.55,
-              rotate: Math.random() * 20 - 10,
-            }}
+        return {
+          sz,
+          baseX,
+          scaleStart,
+          rotStart,
+          xKeyframes: [x1, x2, x3],
+          rotKeyframes: [rot1, rot2, 0],
+          duration,
+          delay,
+          color,
+        };
+      }),
+    [dims[0], dims[1]]
+  );
+
+  if (!mounted) return null;
+
+  return (
+    <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+      {hearts.map((h, i) => (
+        <motion.div
+          key={i}
+          className="absolute"
+          style={{
+            left: h.baseX,
+            fontSize: `${h.sz}px`,
+            color: h.color,
+            filter: `blur(${i % 2 ? 1.1 : 2.6}px) drop-shadow(0 0 20px #ffc2ee)`,
+            top: 0,
+          }}
+          initial={{
+            opacity: 0,
+            y: dims[1] + 50 + i * 14,
+            scale: h.scaleStart,
+            rotate: h.rotStart,
+          }}
+          animate={{
+            opacity: [0, 1, 0.7, 0],
+            y: [80, -dims[1] - 94 - i * 12],
+            scale: [0.75, 1 + Math.random() * 0.18, 0.82],
+            x: h.xKeyframes,
+            rotate: h.rotKeyframes,
+          }}
+          transition={{
+            duration: h.duration,
+            repeat: Infinity,
+            delay: h.delay,
+            ease: "easeInOut",
+          }}
+        >
+          <motion.span
+            initial={{ scale: 0, opacity: 0.7 }}
             animate={{
-              opacity: [0, 1, 0.7, 0],
-              y: [80, -dims[1] - 94 - i * 12],
-              scale: [0.75, 1 + Math.random() * 0.18, 0.82],
-              x: [
-                Math.random() * (dims[0] - sz),
-                Math.random() * (dims[0] - sz),
-                Math.random() * (dims[0] - sz),
-              ],
-              rotate: [Math.random() * 8 - 8, Math.random() * 30, 0],
+              scale: [0.85, 1, 0.92, 0.94],
+              opacity: [0.7, 1, 0.8, 0.69],
             }}
             transition={{
-              duration: 11 + Math.random() * 7,
               repeat: Infinity,
-              delay: Math.random() * 4.1,
-              ease: "easeInOut",
+              duration: 3.5 + Math.random(),
+              repeatType: "mirror",
             }}
           >
-            <motion.span
-              initial={{ scale: 0, opacity: 0.7 }}
-              animate={{
-                scale: [0.85, 1, 0.92, 0.94],
-                opacity: [0.7, 1, 0.8, 0.69],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 3.5 + Math.random(),
-                repeatType: "mirror",
-              }}
-            >
-              ❤️
-            </motion.span>
-          </motion.div>
-        );
-      })}
+            ❤️
+          </motion.span>
+        </motion.div>
+      ))}
     </div>
   );
 };
 
-// --- Sparkles floating on top ---
-const Sparkles = () => (
-  <div className="absolute inset-0 z-0 pointer-events-none">
-    {[...Array(13)].map((_, i) => (
-      <motion.div
-        key={i}
-        style={{
-          left: `${10 + Math.random() * 80}%`,
-          top: `${4 + Math.random() * 91}%`,
-          fontSize: `${14 + Math.random() * 23}px`,
-          color: "#fff4fa",
-          opacity: 0.4 + Math.random() * 0.21,
-          filter: "drop-shadow(0 0 11px #ffe6f7)",
-        }}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{
-          scale: [0.8, 1.13, 1, 0.8],
-          opacity: [0, 0.72, 0.6, 0],
-        }}
-        transition={{
-          duration: 3.3 + Math.random() * 2.2,
-          delay: Math.random() * 4,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "linear",
-        }}
-      >
-        ✨
-      </motion.div>
-    ))}
-  </div>
-);
+// --- Sparkles floating on top (client-only) ---
+const Sparkles = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const sparkles = React.useMemo(
+    () =>
+      [...Array(13)].map(() => ({
+        left: `${10 + Math.random() * 80}%`,
+        top: `${4 + Math.random() * 91}%`,
+        size: `${14 + Math.random() * 23}px`,
+        opacity: 0.4 + Math.random() * 0.21,
+        duration: 3.3 + Math.random() * 2.2,
+        delay: Math.random() * 4,
+      })),
+    [mounted]
+  );
+
+  if (!mounted) return null;
+
+  return (
+    <div className="absolute inset-0 z-0 pointer-events-none">
+      {sparkles.map((s, i) => (
+        <motion.div
+          key={i}
+          style={{
+            left: s.left,
+            top: s.top,
+            fontSize: s.size,
+            color: "#fff4fa",
+            opacity: s.opacity,
+            filter: "drop-shadow(0 0 11px #ffe6f7)",
+          }}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{
+            scale: [0.8, 1.13, 1, 0.8],
+            opacity: [0, 0.72, 0.6, 0],
+          }}
+          transition={{
+            duration: s.duration,
+            delay: s.delay,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "linear",
+          }}
+        >
+          ✨
+        </motion.div>
+      ))}
+    </div>
+  );
+};
 
 export default function AboutUsPage() {
   const router = useRouter();
 
-  // Ensures body always has a soft pastel bg
   useEffect(() => {
     document.body.style.background =
       "radial-gradient(ellipse at top right, #ffe6f6 0%, #fff0f8 48%, #fce4ff 100%)";
@@ -216,14 +272,14 @@ export default function AboutUsPage() {
           "radial-gradient(ellipse at top right, #ffe6f6 0%, #fff0f8 48%, #fce4ff 100%)",
       }}
     >
-      {/* Floats */}
+      <HeartCursor />
       <FloatingHearts />
       <Sparkles />
-      {/* Wavy pastel bottom */}
+
       <div className="absolute left-0 right-0 bottom-0 z-1">
         <PastelWave className="w-full" />
       </div>
-      {/* Back Button */}
+
       <motion.button
         whileHover={{ scale: 1.12, rotate: -8 }}
         whileTap={{ scale: 0.98 }}
@@ -236,6 +292,7 @@ export default function AboutUsPage() {
       >
         <span className="text-2xl">⬅️</span> Back
       </motion.button>
+
       {/* Main Content */}
       <motion.div
         className="relative z-10 max-w-3xl mx-auto text-center flex flex-col px-2 md:px-8 py-8"
@@ -244,44 +301,44 @@ export default function AboutUsPage() {
         transition={{ duration: 0.7, delay: 0.12 }}
       >
         <motion.h1
-  className="text-4xl md:text-5xl font-extrabold my-8 font-cute-1 select-none
+          className="text-4xl md:text-5xl font-extrabold my-8 font-cute-1 select-none
   bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400 text-transparent bg-clip-text
   drop-shadow-[0_2px_8px_#f3c2ea]"
-  initial={{ scale: 0.96, opacity: 0 }}
-  animate={{ scale: 1.05, opacity: 1 }}
-  transition={{ delay: 0.18, duration: 0.7, type: "spring" }}
->
-  <motion.span
-    animate={{
-      rotate: [-14, 7, -10, 0],
-      scale: [1.08, 1.17, 0.97, 1],
-    }}
-    transition={{
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "mirror",
-    }}
-    className="inline-block"
-  >
-    💖
-  </motion.span>{" "}
-  About Dream Partner{" "}
-  <motion.span
-    animate={{
-      rotate: [10, -11, 7, 0],
-      scale: [1.06, 1.14, 1, 1.09, 1],
-    }}
-    transition={{
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "mirror",
-      delay: 0.6,
-    }}
-    className="inline-block"
-  >
-    💖
-  </motion.span>
-</motion.h1>
+          initial={{ scale: 0.96, opacity: 0 }}
+          animate={{ scale: 1.05, opacity: 1 }}
+          transition={{ delay: 0.18, duration: 0.7, type: "spring" }}
+        >
+          <motion.span
+            animate={{
+              rotate: [-14, 7, -10, 0],
+              scale: [1.08, 1.17, 0.97, 1],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "mirror",
+            }}
+            className="inline-block"
+          >
+            💖
+          </motion.span>{" "}
+          About Dream Partner{" "}
+          <motion.span
+            animate={{
+              rotate: [10, -11, 7, 0],
+              scale: [1.06, 1.14, 1, 1.09, 1],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "mirror",
+              delay: 0.6,
+            }}
+            className="inline-block"
+          >
+            💖
+          </motion.span>
+        </motion.h1>
 
         {/* Section: Idea */}
         <motion.div
@@ -304,6 +361,7 @@ export default function AboutUsPage() {
             <b className="text-pink-400">naturally discovering each other</b>.
           </p>
         </motion.div>
+
         {/* Section: Inspiration */}
         <motion.div
           className="mb-7 p-6 rounded-3xl bg-white/90 border-2 border-pink-100/40 shadow-[0_6px_28px_0_#ffd6ee33] backdrop-blur-md"
@@ -329,6 +387,7 @@ export default function AboutUsPage() {
             compatibility shine.
           </p>
         </motion.div>
+
         {/* How It Works */}
         <motion.div
           className="mb-7 p-6 rounded-3xl bg-white/90 border-2 border-pink-100/40 shadow-[0_6px_28px_0_#ffd6ee33] backdrop-blur-md"
@@ -366,6 +425,7 @@ export default function AboutUsPage() {
             </li>
           </ul>
         </motion.div>
+
         {/* Future */}
         <motion.div
           className="mb-8 p-6 rounded-3xl bg-white/90 border-2 border-pink-100/40 shadow-[0_6px_28px_0_#ffd6ee33] backdrop-blur-md"
@@ -383,6 +443,7 @@ export default function AboutUsPage() {
             <li>Bigger than dating—icebreakers, friendships, team-building!</li>
           </ul>
         </motion.div>
+
         {/* Bouncy Heart Divider */}
         <div className="flex items-center justify-center mb-2">
           <motion.span
@@ -417,6 +478,7 @@ export default function AboutUsPage() {
             💗
           </motion.span>
         </div>
+
         {/* Highlighted Quote */}
         <motion.div
           className="mb-2 p-6 rounded-xl shadow-md bg-pink-50/60 border border-pink-200/70 backdrop-blur-xl"
@@ -433,18 +495,3 @@ export default function AboutUsPage() {
     </div>
   );
 }
-
-/*
-Optional: To get the perfect cute font in the title, in your tailwind.config.js:
-
-theme: {
-  extend: {
-    fontFamily: {
-      'cute-1': ['Quicksand', 'Comic Neue', 'cursive', 'sans-serif'],
-    }
-  }
-}
-...and in your _app.js or html: 
-<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet" />
-*/
-
