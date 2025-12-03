@@ -2,8 +2,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import {useMotionValue, useAnimation } from "framer-motion";
-// --- Types ---
+import { useMotionValue, useAnimation } from "framer-motion";
+
 type Option = { id: string | number; text: string };
 type Question = {
   id: number;
@@ -12,7 +12,6 @@ type Question = {
   options: Option[];
 };
 
-// --- Floating Background Hearts ---
 function FloatingHearts() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0 select-none">
@@ -49,7 +48,6 @@ function FloatingHearts() {
   );
 }
 
-// --- Progress Hearts ---
 function ProgressHearts({ current, total }: { current: number; total: number }) {
   return (
     <div className="flex justify-center gap-2 mb-5">
@@ -67,7 +65,6 @@ function ProgressHearts({ current, total }: { current: number; total: number }) 
   );
 }
 
-// --- Heart Slider ---
 function HeartSlider({
   options,
   value,
@@ -83,7 +80,6 @@ function HeartSlider({
   const [width, setWidth] = useState(0);
   const max = options.length - 1;
 
-  // Update width on resize
   useEffect(() => {
     if (trackRef.current) setWidth(trackRef.current.offsetWidth);
     const resize = () =>
@@ -92,7 +88,6 @@ function HeartSlider({
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  // Move handle when value changes externally
   useEffect(() => {
     if (width && max > 0) {
       const newX = (value / max) * width;
@@ -100,7 +95,6 @@ function HeartSlider({
     }
   }, [value, width, max, controls]);
 
-  // Handle drag
   const handleDrag = (_: any, info: any) => {
     if (!trackRef.current || !width) return;
     let pos = info.point.x - trackRef.current.getBoundingClientRect().left;
@@ -109,7 +103,6 @@ function HeartSlider({
     if (idx !== value) onChange(idx);
   };
 
-  // Snap on drag end
   const handleDragEnd = () => {
     if (!trackRef.current || !width) return;
     const snappedX = (value / max) * width;
@@ -126,10 +119,7 @@ function HeartSlider({
         className="relative w-full max-w-xl mx-auto"
         style={{ height: 80 }}
       >
-        {/* Track */}
         <div className="absolute left-0 right-0 top-[25px] h-2 bg-pink-200 rounded-full" />
-
-        {/* Handle */}
         <motion.div
           drag="x"
           dragConstraints={trackRef}
@@ -143,8 +133,6 @@ function HeartSlider({
         >
           <span style={{ fontSize: "2rem" }}>💖</span>
         </motion.div>
-
-        {/* Labels */}
         <div className="absolute left-0 right-0 top-[55px] flex justify-between">
           {options.map((opt, i) => (
             <span
@@ -162,37 +150,39 @@ function HeartSlider({
     </div>
   );
 }
-// --- Main Page ---
+
 export default function QuestionsPage() {
   const router = useRouter();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [current, setCurrent] = useState(0);
-  // Ensure each answer is present, index matches questions: Array of undefined initially
   const [answers, setAnswers] = useState<{ question_id: number; answer: any }[]>([]);
   const [loading, setLoading] = useState(true);
   const [started, setStarted] = useState(false);
   const [sliderVal, setSliderVal] = useState(0);
 
-  // Fetch questions
+  // Fetch questions from FastAPI backend!
   useEffect(() => {
-    fetch("/api/questions")
-      .then((r) => r.json())
-      .then((data) => {
-        setQuestions(data || []);
-        // Initialize answers array with empty slots, so every question index exists
-        setAnswers(Array((data || []).length).fill(undefined));
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  fetch("/api/questions")   // ✅ instead of http://localhost:8000/questions
+    .then((r) => r.json())
+    .then((data) => {
+      setQuestions(data || []);
+      setAnswers(Array((data || []).length).fill(undefined));
+    })
+    .catch((e) => {
+      console.error("Frontend fetch error:", e);
+      setQuestions([]);
+      setAnswers([]);
+    })
+    .finally(() => setLoading(false));
+}, []);
 
-  // Handle slider sync
+
   useEffect(() => {
     if (!questions[current]) return;
     const q = questions[current];
     if (q.options.length >= 5) {
       const idx = Math.floor(q.options.length / 2);
       setSliderVal(idx);
-      // Also update answer for this question
       setAnswers((prev) => {
         const next = [...prev];
         next[current] = {
@@ -202,14 +192,12 @@ export default function QuestionsPage() {
         return next;
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, questions]);
 
   const gotoNext = () =>
     current < questions.length - 1 && setCurrent(current + 1);
   const gotoPrev = () => current > 0 && setCurrent(current - 1);
 
-  // For option click questions
   const handleSelect = (optId: any) => {
     setAnswers((prev) => {
       const next = [...prev];
@@ -219,7 +207,6 @@ export default function QuestionsPage() {
     gotoNext();
   };
 
-  // For slider-based questions, keep answer in sync as sliderVal changes
   const handleSliderChange = (idx: number) => {
     setSliderVal(idx);
     setAnswers((prev) => {
@@ -232,9 +219,7 @@ export default function QuestionsPage() {
     });
   };
 
-  // Final submit: For last question, ensure slider answer is up to date, then submit.
   const handleFinalSubmit = async () => {
-    // Defensive: If last question and it's a slider, update answer one last time
     const q = questions[current];
     let answersFinal = answers;
     if (q.options.length >= 5) {
@@ -246,13 +231,13 @@ export default function QuestionsPage() {
     }
     const payload = { answers: answersFinal };
     try {
-      const res = await fetch("/api/analyze", {
+      const res = await fetch("/api/analyze", { // <-- correct endpoint!
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      localStorage.setItem("pad_analysis", JSON.stringify(data)); // <-- always use localStorage
+      localStorage.setItem("pad_analysis", JSON.stringify(data));
       router.push("/profile");
     } catch (e) {
       alert("Error submitting");
@@ -265,7 +250,6 @@ export default function QuestionsPage() {
     <div className="relative min-h-screen w-full bg-gradient-to-br from-pink-200 via-pink-100 to-purple-200 flex items-center justify-center overflow-hidden">
       <FloatingHearts />
 
-      {/* Start Screen */}
       {!started && (
         <motion.div
           className="z-20 flex flex-col items-center text-center"
@@ -291,7 +275,6 @@ export default function QuestionsPage() {
         </motion.div>
       )}
 
-      {/* Questions Flow */}
       {started && questions.length > 0 && (
         <AnimatePresence mode="wait">
           <motion.div
@@ -307,7 +290,6 @@ export default function QuestionsPage() {
               Question {current + 1} / {questions.length}
             </h2>
             <p className="text-pink-800 text-center mb-6">{questions[current].text}</p>
-
             <div className="flex flex-col gap-3">
               {questions[current].options.length >= 5 ? (
                 <HeartSlider
@@ -327,8 +309,6 @@ export default function QuestionsPage() {
                 ))
               )}
             </div>
-
-            {/* Nav buttons */}
             <div className="mt-6 flex justify-between">
               <button
                 onClick={gotoPrev}
@@ -352,6 +332,10 @@ export default function QuestionsPage() {
             </div>
           </motion.div>
         </AnimatePresence>
+      )}
+      {/* Show a helpful message if no questions are loaded */}
+      {started && !loading && questions.length === 0 && (
+        <div className="p-10 text-pink-700 text-center">No quiz questions available. Please check backend.</div>
       )}
     </div>
   );

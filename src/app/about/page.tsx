@@ -2,6 +2,7 @@
 import React, {useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+
 // --- Heart Cursor ---
 function HeartCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -60,6 +61,7 @@ function HeartCursor() {
     </div>
   );
 }
+
 // --- Pastel Wave SVG for bottom border ---
 const PastelWave = ({ className }) => (
   <svg
@@ -216,13 +218,18 @@ export default function AboutUsPage() {
           "radial-gradient(ellipse at top right, #ffe6f6 0%, #fff0f8 48%, #fce4ff 100%)",
       }}
     >
+      {/* Heart Cursor - FIXED: Now actually used */}
+      <HeartCursor />
+      
       {/* Floats */}
       <FloatingHearts />
       <Sparkles />
+      
       {/* Wavy pastel bottom */}
       <div className="absolute left-0 right-0 bottom-0 z-1">
         <PastelWave className="w-full" />
       </div>
+      
       {/* Back Button */}
       <motion.button
         whileHover={{ scale: 1.12, rotate: -8 }}
@@ -236,6 +243,7 @@ export default function AboutUsPage() {
       >
         <span className="text-2xl">⬅️</span> Back
       </motion.button>
+      
       {/* Main Content */}
       <motion.div
         className="relative z-10 max-w-3xl mx-auto text-center flex flex-col px-2 md:px-8 py-8"
@@ -244,44 +252,44 @@ export default function AboutUsPage() {
         transition={{ duration: 0.7, delay: 0.12 }}
       >
         <motion.h1
-  className="text-4xl md:text-5xl font-extrabold my-8 font-cute-1 select-none
-  bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400 text-transparent bg-clip-text
-  drop-shadow-[0_2px_8px_#f3c2ea]"
-  initial={{ scale: 0.96, opacity: 0 }}
-  animate={{ scale: 1.05, opacity: 1 }}
-  transition={{ delay: 0.18, duration: 0.7, type: "spring" }}
->
-  <motion.span
-    animate={{
-      rotate: [-14, 7, -10, 0],
-      scale: [1.08, 1.17, 0.97, 1],
-    }}
-    transition={{
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "mirror",
-    }}
-    className="inline-block"
-  >
-    💖
-  </motion.span>{" "}
-  About Dream Partner{" "}
-  <motion.span
-    animate={{
-      rotate: [10, -11, 7, 0],
-      scale: [1.06, 1.14, 1, 1.09, 1],
-    }}
-    transition={{
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "mirror",
-      delay: 0.6,
-    }}
-    className="inline-block"
-  >
-    💖
-  </motion.span>
-</motion.h1>
+          className="text-4xl md:text-5xl font-extrabold my-8 font-cute-1 select-none
+          bg-gradient-to-r from-pink-400 via-fuchsia-400 to-purple-400 text-transparent bg-clip-text
+          drop-shadow-[0_2px_8px_#f3c2ea]"
+          initial={{ scale: 0.96, opacity: 0 }}
+          animate={{ scale: 1.05, opacity: 1 }}
+          transition={{ delay: 0.18, duration: 0.7, type: "spring" }}
+        >
+          <motion.span
+            animate={{
+              rotate: [-14, 7, -10, 0],
+              scale: [1.08, 1.17, 0.97, 1],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "mirror",
+            }}
+            className="inline-block"
+          >
+            💖
+          </motion.span>{" "}
+          About Dream Partner{" "}
+          <motion.span
+            animate={{
+              rotate: [10, -11, 7, 0],
+              scale: [1.06, 1.14, 1, 1.09, 1],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "mirror",
+              delay: 0.6,
+            }}
+            className="inline-block"
+          >
+            💖
+          </motion.span>
+        </motion.h1>
 
         {/* Section: Idea */}
         <motion.div
@@ -299,11 +307,12 @@ export default function AboutUsPage() {
             </b>{" "}
             is a <span className="font-bold">2.5D game-based compatibility engine</span> for two players.
             <br />
-            Forget awkward swipes/pickup lines. It’s a cozy world for playing,
+            Forget awkward swipes/pickup lines. It's a cozy world for playing,
             bonding, and{" "}
             <b className="text-pink-400">naturally discovering each other</b>.
           </p>
         </motion.div>
+        
         {/* Section: Inspiration */}
         <motion.div
           className="mb-7 p-6 rounded-3xl bg-white/90 border-2 border-pink-100/40 shadow-[0_6px_28px_0_#ffd6ee33] backdrop-blur-md"
@@ -315,20 +324,21 @@ export default function AboutUsPage() {
             💡 Why Did We Build It?
           </h2>
           <p className="text-pink-600">
-            Dating apps are too mechanical—how can you “feel chemistry” in a
+            Dating apps are too mechanical—how can you "feel chemistry" in a
             swipe? So we asked:
             <br />
             <span className="block my-1 italic text-pink-400 font-cute-1">
-              “What if you could fall for someone <b>before</b> the first
-              message?”
+              "What if you could fall for someone <b>before</b> the first
+              message?"
               <br />
-              “What if play could reveal the real you, not profiles?”
+              "What if play could reveal the real you, not profiles?"
             </span>
             We dreamed up a space where you can{" "}
             <b className="text-pink-400">bond through play</b> and let natural
             compatibility shine.
           </p>
         </motion.div>
+        
         {/* How It Works */}
         <motion.div
           className="mb-7 p-6 rounded-3xl bg-white/90 border-2 border-pink-100/40 shadow-[0_6px_28px_0_#ffd6ee33] backdrop-blur-md"
@@ -366,6 +376,7 @@ export default function AboutUsPage() {
             </li>
           </ul>
         </motion.div>
+        
         {/* Future */}
         <motion.div
           className="mb-8 p-6 rounded-3xl bg-white/90 border-2 border-pink-100/40 shadow-[0_6px_28px_0_#ffd6ee33] backdrop-blur-md"
@@ -383,6 +394,7 @@ export default function AboutUsPage() {
             <li>Bigger than dating—icebreakers, friendships, team-building!</li>
           </ul>
         </motion.div>
+        
         {/* Bouncy Heart Divider */}
         <div className="flex items-center justify-center mb-2">
           <motion.span
@@ -417,6 +429,7 @@ export default function AboutUsPage() {
             💗
           </motion.span>
         </div>
+        
         {/* Highlighted Quote */}
         <motion.div
           className="mb-2 p-6 rounded-xl shadow-md bg-pink-50/60 border border-pink-200/70 backdrop-blur-xl"
@@ -425,26 +438,11 @@ export default function AboutUsPage() {
           transition={{ duration: 1.1, type: "spring" }}
         >
           <p className="text-xl md:text-2xl text-pink-400 font-semibold italic font-cute-1">
-            ✨ “How could you not talk to someone after playing a game and having
-            fun together? No awkward intros—just pure, natural connection.” ✨
+            ✨ "How could you not talk to someone after playing a game and having
+            fun together? No awkward intros—just pure, natural connection." ✨
           </p>
         </motion.div>
       </motion.div>
     </div>
   );
 }
-
-/*
-Optional: To get the perfect cute font in the title, in your tailwind.config.js:
-
-theme: {
-  extend: {
-    fontFamily: {
-      'cute-1': ['Quicksand', 'Comic Neue', 'cursive', 'sans-serif'],
-    }
-  }
-}
-...and in your _app.js or html: 
-<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet" />
-*/
-
