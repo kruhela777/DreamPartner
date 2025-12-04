@@ -1,13 +1,32 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+type TopEmotion = {
+  name: string;
+  score: number;
+};
+
+type CoreTriad = {
+  pleasure: number;
+  arousal: number;
+  dominance: number;
+};
+
+type PadAnalysis = {
+  primary_emotion: string;
+  core_triad: CoreTriad;
+  top_emotions: TopEmotion[];
+};
+
 export default function ResultsPage() {
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<PadAnalysis | null>(null);
 
   useEffect(() => {
-    // ✅ pull from localStorage now
     const raw = localStorage.getItem("pad_analysis");
-    if (raw) setResult(JSON.parse(raw));
+    if (raw) {
+      // JSON.parse returns unknown by default; we assert to PadAnalysis here
+      setResult(JSON.parse(raw) as PadAnalysis);
+    }
   }, []);
 
   if (!result)
@@ -33,7 +52,8 @@ export default function ResultsPage() {
         <p className="text-base">
           {result.primary_emotion}{" "}
           <span className="text-sm text-pink-400">
-            ({result.top_emotions?.[0]?.score}%)
+            {result.top_emotions?.[0] &&
+              `(${result.top_emotions[0].score}%)`}
           </span>
         </p>
       </div>
@@ -54,7 +74,7 @@ export default function ResultsPage() {
           Top Emotions
         </h2>
         <ul className="space-y-1">
-          {result.top_emotions?.map((e: any, idx: number) => (
+          {result.top_emotions?.map((e: TopEmotion, idx: number) => (
             <li key={idx}>
               {e.name} — {e.score}%
             </li>
