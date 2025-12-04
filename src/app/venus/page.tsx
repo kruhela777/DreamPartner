@@ -110,45 +110,51 @@ function Constellations({ positions }: { positions: Float32Array }) {
   return <lineSegments geometry={geometry}><lineBasicMaterial color="white" transparent opacity={0.3} /></lineSegments>;
 }
 
-function VenusModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) => void, onClick?: () => void }) {
+function VenusModel({
+  onHoverChange,
+  onClick,
+}: {
+  onHoverChange?: (b: boolean) => void;
+  onClick?: () => void;
+}) {
   const { scene } = useGLTF("/models/venus/scene.gltf", true);
   const groupRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
-  scene.traverse((child) => {
-    if ((child as THREE.Mesh).isMesh) {
-      const mesh = child as THREE.Mesh;
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
 
-      const materials = Array.isArray(mesh.material)
-        ? mesh.material
-        : [mesh.material];
+        const materials = Array.isArray(mesh.material)
+          ? mesh.material
+          : [mesh.material];
 
-      materials.forEach((mat) => {
-        const m = mat as THREE.MeshStandardMaterial | null;
-        if (!m) return;
-        m.side = THREE.DoubleSide;
-        m.transparent = false;
-        m.opacity = 1;
-        m.color.set("#ffc9ae");
-        m.metalness = 0.22;
-        m.roughness = 0.45;
-      });
+        materials.forEach((mat) => {
+          const m = mat as THREE.MeshStandardMaterial | null;
+          if (!m) return;
+          m.side = THREE.DoubleSide;
+          m.transparent = false;
+          m.opacity = 1;
+          m.color.set("#ffc9ae");
+          m.metalness = 0.22;
+          m.roughness = 0.45;
+        });
+      }
+    });
+
+    const box = new THREE.Box3().setFromObject(scene);
+    const size = new THREE.Vector3();
+    const center = new THREE.Vector3();
+    box.getSize(size);
+    box.getCenter(center);
+    scene.position.sub(center);
+    if (groupRef.current) {
+      const scale = 2 / Math.max(size.x, size.y, size.z, 1);
+      groupRef.current.scale.setScalar(scale);
     }
-  });
-
-  const box = new THREE.Box3().setFromObject(scene);
-  const size = new THREE.Vector3();
-  const center = new THREE.Vector3();
-  box.getSize(size);
-  box.getCenter(center);
-  scene.position.sub(center);
-  if (groupRef.current) {
-    const scale = 2 / Math.max(size.x, size.y, size.z, 1);
-    groupRef.current.scale.setScalar(scale);
-  }
-}, [scene]);
+  }, [scene]);
 
   useFrame(() => {
     if (groupRef.current) {
@@ -159,14 +165,21 @@ function VenusModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) =
   return (
     <group
       ref={groupRef}
-      onPointerOver={e => { e.stopPropagation(); onHoverChange?.(true); }}
-      onPointerOut={e => { e.stopPropagation(); onHoverChange?.(false); }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        onHoverChange?.(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        onHoverChange?.(false);
+      }}
       onClick={onClick}
     >
       <primitive object={scene} dispose={null} />
     </group>
   );
 }
+
 useGLTF.preload("/models/venus/scene.gltf");
 
 // --- TypewriterText Helper ---
