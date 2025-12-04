@@ -24,8 +24,9 @@ export default function ResultsPage() {
   useEffect(() => {
     const raw = localStorage.getItem("pad_analysis");
     if (raw) {
-      // JSON.parse returns unknown by default; we assert to PadAnalysis here
-      setResult(JSON.parse(raw) as PadAnalysis);
+      // If needed, you can add validation here before casting
+      const parsed = JSON.parse(raw) as PadAnalysis;
+      setResult(parsed);
     }
   }, []);
 
@@ -74,7 +75,7 @@ export default function ResultsPage() {
           Top Emotions
         </h2>
         <ul className="space-y-1">
-          {result.top_emotions?.map((e: TopEmotion, idx: number) => (
+          {result.top_emotions?.map((e, idx) => (
             <li key={idx}>
               {e.name} — {e.score}%
             </li>
