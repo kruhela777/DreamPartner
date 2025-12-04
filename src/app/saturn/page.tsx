@@ -121,16 +121,27 @@ function Constellations({ positions }: { positions: Float32Array }) {
 }
 
 // --- Saturn 3D Model (clickable) ---
-function SaturnModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) => void; onClick?: () => void }) {
+// --- Saturn 3D Model (clickable) ---
+function SaturnModel({
+  onHoverChange,
+  onClick,
+}: {
+  onHoverChange?: (b: boolean) => void;
+  onClick?: () => void;
+}) {
   const { scene } = useGLTF("/models/saturn/scene.gltf");
   const bodyTexture = useTexture("/models/saturn/textures/saturn1_A_diffuse.png");
-  const bodySpecular = useTexture("/models/saturn/textures/saturn1_A_specularGlossiness.png");
+  const bodySpecular = useTexture(
+    "/models/saturn/textures/saturn1_A_specularGlossiness.png"
+  );
   const ringTexture = useTexture("/models/saturn/textures/saturn2_A_diffuse.png");
-  const ringAlpha = useTexture("/models/saturn/textures/saturn2_A_specularGlossiness.png");
+  const ringAlpha = useTexture(
+    "/models/saturn/textures/saturn2_A_specularGlossiness.png"
+  );
   const groupRef = useRef<THREE.Group>(null);
   const modelRef = useRef<THREE.Group>(null);
 
-    useEffect(() => {
+  useEffect(() => {
     if (modelRef.current) {
       const box = new THREE.Box3().setFromObject(modelRef.current);
       const center = new THREE.Vector3();
@@ -175,7 +186,8 @@ function SaturnModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) 
       modelRef.current.rotation.y += 0.01;
     }
   });
-    return (
+
+  return (
     <group
       ref={groupRef}
       onPointerOver={(e) => {
@@ -197,8 +209,8 @@ function SaturnModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) 
       </group>
     </group>
   );
-
 }
+
 useGLTF.preload("/models/saturn/scene.gltf");
 
 // --- Typewriter ---
