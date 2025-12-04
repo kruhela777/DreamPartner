@@ -263,7 +263,7 @@ export default function QuestionsPage() {
       const data = await res.json();
       localStorage.setItem("pad_analysis", JSON.stringify(data));
       router.push("/profile");
-    } catch (_err) {
+    } catch{
       alert("Error submitting");
     }
   };
