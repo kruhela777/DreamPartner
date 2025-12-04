@@ -122,35 +122,56 @@ function Constellations({ positions }: { positions: Float32Array }) {
 }
 
 // --- Uranus Model (scaled, spinning, styled like Neptune) ---
-function UranusModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) => void, onClick?: () => void }) {
+// --- Uranus Model (scaled, spinning, styled like Neptune) ---
+function UranusModel({
+  onHoverChange,
+  onClick,
+}: {
+  onHoverChange?: (b: boolean) => void;
+  onClick?: () => void;
+}) {
   const { scene } = useGLTF("/models/uranus/scene.gltf");
 
   useEffect(() => {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        child.material = new THREE.MeshStandardMaterial({
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.material = new THREE.MeshStandardMaterial({
           color: "#80c6e6",
           metalness: 0.2,
           roughness: 0.5,
         });
       }
     });
-  }, [scene]);
+  }, [scene]); // no-explicit-any satisfied [web:65][web:66]
 
-  useFrame(() => { scene.rotation.y += 0.01; });
+  useFrame(() => {
+    scene.rotation.y += 0.01;
+  });
 
   return (
     <group
-      onPointerOver={e => { e.stopPropagation(); onHoverChange && onHoverChange(true); }}
-      onPointerOut={e => { e.stopPropagation(); onHoverChange && onHoverChange(false); }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        if (onHoverChange) {
+          onHoverChange(true);
+        }
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        if (onHoverChange) {
+          onHoverChange(false);
+        }
+      }} // no-unused-expressions satisfied [web:78]
       onClick={onClick}
     >
       <primitive object={scene} dispose={null} />
     </group>
   );
 }
+
 useGLTF.preload("/models/uranus/scene.gltf");
 
 // --- TypewriterText ---
