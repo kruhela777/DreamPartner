@@ -149,29 +149,36 @@ function MoonModel({ onHoverChange, onClick }: { onHoverChange: (h: boolean) => 
   const { scene } = useGLTF("/models/moon/scene.gltf");
   const groupRef = useRef<THREE.Group>(null);
 
-  useEffect(() => {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.castShadow = child.receiveShadow = true;
-        const mats = Array.isArray(child.material) ? child.material : [child.material];
-        mats.forEach((m: any) => {
+      useEffect(() => {
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        const materials = Array.isArray(mesh.material)
+          ? mesh.material
+          : [mesh.material];
+
+        materials.forEach((mat) => {
+          const m = mat as THREE.MeshStandardMaterial | null;
           if (!m) return;
           m.side = THREE.DoubleSide;
           m.transparent = false;
         });
       }
     });
+
     const box = new THREE.Box3().setFromObject(scene);
     const center = new THREE.Vector3();
     box.getCenter(center);
     scene.position.sub(center);
     const size = new THREE.Vector3();
     box.getSize(size);
-    const scale = 600 / Math.max(size.x, size.y, size.z, 1); // even bigger moon
-scene.scale.setScalar(scale);
-
-
+    const scale = 600 / Math.max(size.x, size.y, size.z, 1);
+    scene.scale.setScalar(scale);
   }, [scene]);
+
 
   useFrame(() => {
     if (groupRef.current) {
