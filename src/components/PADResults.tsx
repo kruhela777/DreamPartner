@@ -24,7 +24,7 @@ export default function PADResults() {
   useEffect(() => {
     const raw = sessionStorage.getItem("pad_analysis");
     if (raw) {
-      const parsed = JSON.parse(raw) as PadAnalysis;
+      const parsed: PadAnalysis = JSON.parse(raw) as PadAnalysis;
       setResult(parsed);
     }
   }, []);
@@ -56,15 +56,15 @@ export default function PADResults() {
 
       <div className="bg-white/10 p-3 rounded-xl mb-3">
         <h2 className="font-semibold text-pink-700 mb-1">Core PAD Triad</h2>
-        <p>P: {Number(result.core_triad?.pleasure).toFixed(3)}</p>
-        <p>A: {Number(result.core_triad?.arousal).toFixed(3)}</p>
-        <p>D: {Number(result.core_triad?.dominance).toFixed(3)}</p>
+        <p>P: {Number(result.core_triad.pleasure).toFixed(3)}</p>
+        <p>A: {Number(result.core_triad.arousal).toFixed(3)}</p>
+        <p>D: {Number(result.core_triad.dominance).toFixed(3)}</p>
       </div>
 
       <div className="bg-white/10 p-3 rounded-xl">
         <h2 className="font-semibold text-pink-700 mb-1">Top Emotions</h2>
         <ul>
-          {result.top_emotions?.map((e: TopEmotion, idx: number) => (
+          {result.top_emotions.map((e, idx) => (
             <li key={idx}>
               {e.name} — {e.score}%
             </li>
