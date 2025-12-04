@@ -122,7 +122,6 @@ function Constellations({ positions }: { positions: Float32Array }) {
 }
 
 // --- Uranus Model (scaled, spinning, styled like Neptune) ---
-// --- Uranus Model (scaled, spinning, styled like Neptune) ---
 function UranusModel({
   onHoverChange,
   onClick,
@@ -145,7 +144,7 @@ function UranusModel({
         });
       }
     });
-  }, [scene]); // no-explicit-any satisfied [web:65][web:66]
+  }, [scene]);
 
   useFrame(() => {
     scene.rotation.y += 0.01;
@@ -164,13 +163,14 @@ function UranusModel({
         if (onHoverChange) {
           onHoverChange(false);
         }
-      }} // no-unused-expressions satisfied [web:78]
+      }}
       onClick={onClick}
     >
       <primitive object={scene} dispose={null} />
     </group>
   );
 }
+
 
 useGLTF.preload("/models/uranus/scene.gltf");
 
