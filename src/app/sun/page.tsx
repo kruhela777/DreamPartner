@@ -154,7 +154,7 @@ function SunModel({
   const { scene } = useGLTF("/models/sun/scene.gltf");
   const groupRef = useRef<THREE.Group>(null);
 
-  useEffect(() => {
+    useEffect(() => {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
@@ -183,6 +183,7 @@ function SunModel({
     const scale = 10 / Math.max(size.x, size.y, size.z, 1);
     scene.scale.setScalar(scale);
   }, [scene]);
+
 
   useFrame(() => {
     if (groupRef.current) {
