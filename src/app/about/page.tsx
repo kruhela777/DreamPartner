@@ -105,16 +105,18 @@ const FloatingHearts = () => {
   }, [mounted]);
 
   // Pre-generate random config once per mount to keep stable during this session
+    // Pre-generate random config once per mount to keep stable during this session
   const hearts = React.useMemo(
     () =>
       [...Array(20)].map((_, i) => {
+        const [width, height] = dims;
         const sz = 32 + Math.random() * 32;
-        const baseX = Math.random() * dims[0] * 0.92;
+        const baseX = Math.random() * width * 0.92;
         const scaleStart = 0.5 + Math.random() * 0.55;
         const rotStart = Math.random() * 20 - 10;
-        const x1 = Math.random() * (dims[0] - sz);
-        const x2 = Math.random() * (dims[0] - sz);
-        const x3 = Math.random() * (dims[0] - sz);
+        const x1 = Math.random() * (width - sz);
+        const x2 = Math.random() * (width - sz);
+        const x3 = Math.random() * (width - sz);
         const rot1 = Math.random() * 8 - 8;
         const rot2 = Math.random() * 30;
         const duration = 11 + Math.random() * 7;
@@ -137,12 +139,14 @@ const FloatingHearts = () => {
           duration,
           delay,
           color,
+          height, // keep for y calc
         };
       }),
-    [dims[0], dims[1]]
+    [dims]
   );
 
   if (!mounted) return null;
+
 
   return (
     <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
@@ -157,16 +161,15 @@ const FloatingHearts = () => {
             filter: `blur(${i % 2 ? 1.1 : 2.6}px) drop-shadow(0 0 20px #ffc2ee)`,
             top: 0,
           }}
-          initial={{
+           initial={{
             opacity: 0,
-            y: dims[1] + 50 + i * 14,
+            y: h.height + 50 + i * 14,
             scale: h.scaleStart,
             rotate: h.rotStart,
           }}
           animate={{
             opacity: [0, 1, 0.7, 0],
-            y: [80, -dims[1] - 94 - i * 12],
-            scale: [0.75, 1 + Math.random() * 0.18, 0.82],
+            y: [80, -h.height - 94 - i * 12],
             x: h.xKeyframes,
             rotate: h.rotKeyframes,
           }}
@@ -205,7 +208,7 @@ const Sparkles = () => {
     setMounted(true);
   }, []);
 
-  const sparkles = React.useMemo(
+    const sparkles = React.useMemo(
     () =>
       [...Array(13)].map(() => ({
         left: `${10 + Math.random() * 80}%`,
@@ -215,8 +218,9 @@ const Sparkles = () => {
         duration: 3.3 + Math.random() * 2.2,
         delay: Math.random() * 4,
       })),
-    [mounted]
+    [] // no dependencies needed
   );
+
 
   if (!mounted) return null;
 
