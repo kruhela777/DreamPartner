@@ -130,7 +130,7 @@ function SaturnModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) 
   const groupRef = useRef<THREE.Group>(null);
   const modelRef = useRef<THREE.Group>(null);
 
-  useEffect(() => {
+    useEffect(() => {
     if (modelRef.current) {
       const box = new THREE.Box3().setFromObject(modelRef.current);
       const center = new THREE.Vector3();
@@ -138,10 +138,13 @@ function SaturnModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) 
       modelRef.current.position.sub(center);
       modelRef.current.scale.setScalar(0.002);
     }
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        if (child.name.toLowerCase().includes("ring")) {
-          child.material = new THREE.MeshStandardMaterial({
+
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+
+        if (mesh.name.toLowerCase().includes("ring")) {
+          mesh.material = new THREE.MeshStandardMaterial({
             map: ringTexture,
             alphaMap: ringAlpha,
             transparent: true,
@@ -151,7 +154,7 @@ function SaturnModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) 
             color: new THREE.Color(0xb08f36),
           });
         } else {
-          child.material = new THREE.MeshStandardMaterial({
+          mesh.material = new THREE.MeshStandardMaterial({
             map: bodyTexture,
             metalnessMap: bodySpecular,
             metalness: 0.5,
@@ -161,20 +164,32 @@ function SaturnModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) 
             color: new THREE.Color(0xc4a484),
           });
         }
-        child.material.needsUpdate = true;
+
+        (mesh.material as THREE.Material).needsUpdate = true;
       }
     });
   }, [scene, bodyTexture, bodySpecular, ringTexture, ringAlpha]);
+
   useFrame(() => {
     if (modelRef.current) {
       modelRef.current.rotation.y += 0.01;
     }
   });
-  return (
+    return (
     <group
       ref={groupRef}
-      onPointerOver={e => { e.stopPropagation(); onHoverChange && onHoverChange(true); }}
-      onPointerOut={e => { e.stopPropagation(); onHoverChange && onHoverChange(false); }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        if (onHoverChange) {
+          onHoverChange(true);
+        }
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        if (onHoverChange) {
+          onHoverChange(false);
+        }
+      }}
       onClick={onClick}
     >
       <group ref={modelRef}>
@@ -182,6 +197,7 @@ function SaturnModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) 
       </group>
     </group>
   );
+
 }
 useGLTF.preload("/models/saturn/scene.gltf");
 
