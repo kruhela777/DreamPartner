@@ -140,7 +140,7 @@ function NeptuneModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean)
   const { scene } = useGLTF("/models/neptune/scene.gltf");
   const groupRef = useRef<THREE.Group>(null);
 
-      useEffect(() => {
+  useEffect(() => {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
@@ -171,7 +171,6 @@ function NeptuneModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean)
     scene.scale.setScalar(scale);
   }, [scene]);
 
-
   useFrame(() => {
     if (groupRef.current) {
       scene.rotation.y += 0.01;
@@ -181,14 +180,21 @@ function NeptuneModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean)
   return (
     <group
       ref={groupRef}
-      onPointerOver={e => { e.stopPropagation(); if (onHoverChange) onHoverChange(true); }}
-      onPointerOut={e => { e.stopPropagation(); if (onHoverChange) onHoverChange(false); }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        if (onHoverChange) onHoverChange(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        if (onHoverChange) onHoverChange(false);
+      }}
       onClick={onClick}
     >
       <primitive object={scene} dispose={null} />
     </group>
   );
 }
+
 useGLTF.preload("/models/neptune/scene.gltf");
 
 // --- TypewriterText ---
@@ -410,9 +416,10 @@ export default function NeptunePage() {
             <directionalLight position={[10, 10, 10]} intensity={2.7} castShadow />
             <Suspense fallback={<mesh><sphereGeometry args={[2, 32, 32]} /><meshStandardMaterial color="#2563EB" /></mesh>}>
               <NeptuneModel
-                onHoverChange={setShowTypewriter}
-                onClick={() => router.push("/game")}
+              onHoverChange={setShowTypewriter}
+              onClick={() => router.push("/game")}
               />
+
             </Suspense>
             <OrbitControls enableZoom={false} enablePan={false} />
           </Canvas>
