@@ -105,11 +105,11 @@ const FloatingHearts = () => {
   }, [mounted]);
 
   // Pre-generate random config once per mount to keep stable during this session
-    // Pre-generate random config once per mount to keep stable during this session
+  const [width, height] = dims;
+
   const hearts = React.useMemo(
     () =>
       [...Array(20)].map((_, i) => {
-        const [width, height] = dims;
         const sz = 32 + Math.random() * 32;
         const baseX = Math.random() * width * 0.92;
         const scaleStart = 0.5 + Math.random() * 0.55;
@@ -139,11 +139,11 @@ const FloatingHearts = () => {
           duration,
           delay,
           color,
-          height, // keep for y calc
         };
       }),
-    [dims]
+    [width] // only simple scalar in deps
   );
+
 
   if (!mounted) return null;
 
@@ -161,18 +161,19 @@ const FloatingHearts = () => {
             filter: `blur(${i % 2 ? 1.1 : 2.6}px) drop-shadow(0 0 20px #ffc2ee)`,
             top: 0,
           }}
-           initial={{
+          initial={{
             opacity: 0,
-            y: h.height + 50 + i * 14,
+            y: height + 50 + i * 14,
             scale: h.scaleStart,
             rotate: h.rotStart,
           }}
           animate={{
             opacity: [0, 1, 0.7, 0],
-            y: [80, -h.height - 94 - i * 12],
+            y: [80, -height - 94 - i * 12],
             x: h.xKeyframes,
             rotate: h.rotKeyframes,
           }}
+
           transition={{
             duration: h.duration,
             repeat: Infinity,
@@ -208,7 +209,7 @@ const Sparkles = () => {
     setMounted(true);
   }, []);
 
-    const sparkles = React.useMemo(
+  const sparkles = React.useMemo(
     () =>
       [...Array(13)].map(() => ({
         left: `${10 + Math.random() * 80}%`,
@@ -218,8 +219,10 @@ const Sparkles = () => {
         duration: 3.3 + Math.random() * 2.2,
         delay: Math.random() * 4,
       })),
-    [] // no dependencies needed
+    [] // no dependencies
   );
+
+
 
 
   if (!mounted) return null;
