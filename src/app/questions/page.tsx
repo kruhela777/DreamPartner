@@ -244,29 +244,30 @@ export default function QuestionsPage() {
   };
 
   const handleFinalSubmit = async () => {
-    const q = questions[current];
-    let answersFinal: AnswerEntry[] = answers;
-    if (q.options.length >= 5) {
-      answersFinal = [...answers];
-      answersFinal[current] = {
-        question_id: q.id,
-        answer: q.options[sliderVal].id,
-      };
-    }
-    const payload = { answers: answersFinal };
-    try {
-      const res = await fetch("/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      localStorage.setItem("pad_analysis", JSON.stringify(data));
-      router.push("/profile");
-    } catch{
-      alert("Error submitting");
-    }
-  };
+  const q = questions[current];
+  let answersFinal: AnswerEntry[] = answers;
+  if (q.options.length >= 5) {
+    answersFinal = [...answers];
+    answersFinal[current] = {
+      question_id: q.id,
+      answer: q.options[sliderVal].id,
+    };
+  }
+  const payload = { answers: answersFinal };
+  try {
+    const res = await fetch("/api/analyze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    localStorage.setItem("pad_analysis", JSON.stringify(data));
+    router.push("/profile");
+  } catch {
+    alert("Error submitting");
+  }
+};
+
 
   if (loading) return <div className="p-10">Loading…</div>;
 
