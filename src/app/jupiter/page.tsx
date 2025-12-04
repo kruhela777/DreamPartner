@@ -116,38 +116,61 @@ function Constellations({ positions }: { positions: Float32Array }) {
 }
 
 // --- Jupiter Model ---
-function JupiterModel({ onHoverChange, onClick }: { onHoverChange: (h: boolean) => void, onClick?: () => void }) {
+// --- Jupiter Model ---
+function JupiterModel({
+  onHoverChange,
+  onClick,
+}: {
+  onHoverChange: (h: boolean) => void;
+  onClick?: () => void;
+}) {
   const { scene } = useGLTF("/models/jupiter/scene.gltf");
   const groupRef = useRef<THREE.Group>(null);
+
   useEffect(() => {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.castShadow = child.receiveShadow = true;
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
       }
     });
+
     const box = new THREE.Box3().setFromObject(scene);
     const center = new THREE.Vector3();
     box.getCenter(center);
     scene.position.sub(center);
+
     const size = new THREE.Vector3();
     box.getSize(size);
     const scale = 10 / Math.max(size.x, size.y, size.z, 1);
     scene.scale.setScalar(scale);
   }, [scene]);
+
   useFrame(() => {
-    if (groupRef.current) { scene.rotation.y += 0.01; }
+    if (groupRef.current) {
+      scene.rotation.y += 0.01;
+    }
   });
+
   return (
     <group
       ref={groupRef}
-      onPointerOver={(e) => { e.stopPropagation(); onHoverChange(true); }}
-      onPointerOut={(e) => { e.stopPropagation(); onHoverChange(false); }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        onHoverChange(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        onHoverChange(false);
+      }}
       onClick={onClick}
     >
       <primitive object={scene} dispose={null} />
     </group>
   );
 }
+
 useGLTF.preload("/models/jupiter/scene.gltf");
 
 // --- TypewriterText ---
