@@ -116,7 +116,7 @@ function MercuryModel({ onHoverChange, onClick }: {onHoverChange?: (b: boolean)=
   const { scene } = useGLTF("/models/mercury/scene.gltf");
   const groupRef = useRef<THREE.Group>(null);
 
-    useEffect(() => {
+      useEffect(() => {
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
@@ -155,7 +155,7 @@ function MercuryModel({ onHoverChange, onClick }: {onHoverChange?: (b: boolean)=
     scene.rotation.y += 0.02;
   });
 
-    return (
+      return (
     <group
       ref={groupRef}
       onPointerOver={(e) => {
@@ -175,6 +175,7 @@ function MercuryModel({ onHoverChange, onClick }: {onHoverChange?: (b: boolean)=
       <primitive object={scene} dispose={null} />
     </group>
   );
+
 
 }
 useGLTF.preload("/models/mercury/scene.gltf");
