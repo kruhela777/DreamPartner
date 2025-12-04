@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { useMotionValue, useAnimation } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useAnimation, PanInfo } from "framer-motion";
 
 type Option = { id: string | number; text: string };
 type Question = {
@@ -11,6 +10,9 @@ type Question = {
   text: string;
   options: Option[];
 };
+
+type AnswerValue = string | number;
+type AnswerEntry = { question_id: number; answer: AnswerValue | undefined };
 
 function FloatingHearts() {
   return (
@@ -82,8 +84,11 @@ function HeartSlider({
 
   useEffect(() => {
     if (trackRef.current) setWidth(trackRef.current.offsetWidth);
-    const resize = () =>
-      trackRef.current && setWidth(trackRef.current.offsetWidth);
+    const resize = () => {
+      if (trackRef.current) {
+        setWidth(trackRef.current.offsetWidth);
+      }
+    };
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
@@ -91,11 +96,17 @@ function HeartSlider({
   useEffect(() => {
     if (width && max > 0) {
       const newX = (value / max) * width;
-      controls.start({ x: newX, transition: { type: "spring", stiffness: 300, damping: 30 } });
+      controls.start({
+        x: newX,
+        transition: { type: "spring", stiffness: 300, damping: 30 },
+      });
     }
   }, [value, width, max, controls]);
 
-  const handleDrag = (_: any, info: any) => {
+  const handleDrag = (
+    _event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
     if (!trackRef.current || !width) return;
     let pos = info.point.x - trackRef.current.getBoundingClientRect().left;
     pos = Math.max(0, Math.min(width, pos));
@@ -155,27 +166,33 @@ export default function QuestionsPage() {
   const router = useRouter();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [current, setCurrent] = useState(0);
-  const [answers, setAnswers] = useState<{ question_id: number; answer: any }[]>([]);
+  const [answers, setAnswers] = useState<AnswerEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [started, setStarted] = useState(false);
   const [sliderVal, setSliderVal] = useState(0);
 
-  // Fetch questions from FastAPI backend!
+  // Fetch questions from FastAPI backend
   useEffect(() => {
-  fetch("/api/questions")   // ✅ instead of http://localhost:8000/questions
-    .then((r) => r.json())
-    .then((data) => {
-      setQuestions(data || []);
-      setAnswers(Array((data || []).length).fill(undefined));
-    })
-    .catch((e) => {
-      console.error("Frontend fetch error:", e);
-      setQuestions([]);
-      setAnswers([]);
-    })
-    .finally(() => setLoading(false));
-}, []);
-
+    fetch("/api/questions")
+      .then((r) => r.json())
+      .then((data: Question[]) => {
+        const list = data || [];
+        setQuestions(list);
+        // initialize answers with undefined answers but correct question ids when available
+        setAnswers(
+          list.map((q) => ({
+            question_id: q.id,
+            answer: undefined,
+          }))
+        );
+      })
+      .catch((err) => {
+        console.error("Frontend fetch error:", err);
+        setQuestions([]);
+        setAnswers([]);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
     if (!questions[current]) return;
@@ -198,10 +215,13 @@ export default function QuestionsPage() {
     current < questions.length - 1 && setCurrent(current + 1);
   const gotoPrev = () => current > 0 && setCurrent(current - 1);
 
-  const handleSelect = (optId: any) => {
+  const handleSelect = (optId: AnswerValue) => {
     setAnswers((prev) => {
       const next = [...prev];
-      next[current] = { question_id: questions[current].id, answer: optId };
+      next[current] = {
+        question_id: questions[current].id,
+        answer: optId,
+      };
       return next;
     });
     gotoNext();
@@ -221,7 +241,7 @@ export default function QuestionsPage() {
 
   const handleFinalSubmit = async () => {
     const q = questions[current];
-    let answersFinal = answers;
+    let answersFinal: AnswerEntry[] = answers;
     if (q.options.length >= 5) {
       answersFinal = [...answers];
       answersFinal[current] = {
@@ -231,7 +251,7 @@ export default function QuestionsPage() {
     }
     const payload = { answers: answersFinal };
     try {
-      const res = await fetch("/api/analyze", { // <-- correct endpoint!
+      const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -239,7 +259,7 @@ export default function QuestionsPage() {
       const data = await res.json();
       localStorage.setItem("pad_analysis", JSON.stringify(data));
       router.push("/profile");
-    } catch (e) {
+    } catch (_err) {
       alert("Error submitting");
     }
   };
@@ -289,7 +309,9 @@ export default function QuestionsPage() {
             <h2 className="text-xl font-bold text-pink-700 mb-4 text-center">
               Question {current + 1} / {questions.length}
             </h2>
-            <p className="text-pink-800 text-center mb-6">{questions[current].text}</p>
+            <p className="text-pink-800 text-center mb-6">
+              {questions[current].text}
+            </p>
             <div className="flex flex-col gap-3">
               {questions[current].options.length >= 5 ? (
                 <HeartSlider
@@ -333,9 +355,11 @@ export default function QuestionsPage() {
           </motion.div>
         </AnimatePresence>
       )}
-      {/* Show a helpful message if no questions are loaded */}
+
       {started && !loading && questions.length === 0 && (
-        <div className="p-10 text-pink-700 text-center">No quiz questions available. Please check backend.</div>
+        <div className="p-10 text-pink-700 text-center">
+          No quiz questions available. Please check backend.
+        </div>
       )}
     </div>
   );
