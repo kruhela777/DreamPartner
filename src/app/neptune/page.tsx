@@ -139,14 +139,20 @@ function Constellations({ positions }: { positions: Float32Array }) {
 function NeptuneModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) => void; onClick?: () => void }) {
   const { scene } = useGLTF("/models/neptune/scene.gltf");
   const groupRef = useRef<THREE.Group>(null);
-  const router = useRouter();
 
-  useEffect(() => {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.castShadow = child.receiveShadow = true;
-        const mats = Array.isArray(child.material) ? child.material : [child.material];
-        mats.forEach((m: any) => {
+      useEffect(() => {
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        const materials = Array.isArray(mesh.material)
+          ? mesh.material
+          : [mesh.material];
+
+        materials.forEach((mat) => {
+          const m = mat as THREE.MeshStandardMaterial | null;
           if (!m) return;
           m.side = THREE.DoubleSide;
           if (m.opacity === 0) m.opacity = 1;
@@ -154,7 +160,7 @@ function NeptuneModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean)
         });
       }
     });
-    // Center and statically scale
+
     const box = new THREE.Box3().setFromObject(scene);
     const center = new THREE.Vector3();
     box.getCenter(center);
@@ -164,6 +170,8 @@ function NeptuneModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean)
     const scale = 8 / Math.max(size.x, size.y, size.z, 1);
     scene.scale.setScalar(scale);
   }, [scene]);
+
+
   useFrame(() => {
     if (groupRef.current) {
       scene.rotation.y += 0.01;
