@@ -126,18 +126,19 @@ function MarsModel({ onHoverChange, onClick }: { onHoverChange?: (v: boolean) =>
   const marsTexture = useTexture("/models/mars/textures/Material.001_baseColor.jpeg");
   const modelRef = useRef<THREE.Group>(null);
 
-  useEffect(() => {
+    useEffect(() => {
     if (modelRef.current) {
-      // Center
       const box = new THREE.Box3().setFromObject(modelRef.current);
       const center = new THREE.Vector3();
       box.getCenter(center);
       modelRef.current.position.sub(center);
       modelRef.current.scale.setScalar(2);
     }
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.material = new THREE.MeshStandardMaterial({
+
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.material = new THREE.MeshStandardMaterial({
           map: marsTexture,
           roughness: 1.0,
           metalness: 0.0,
@@ -145,10 +146,11 @@ function MarsModel({ onHoverChange, onClick }: { onHoverChange?: (v: boolean) =>
           emissive: new THREE.Color(0x0a0603),
           emissiveIntensity: 0.15,
         });
-        child.material.needsUpdate = true;
+        (mesh.material as THREE.Material).needsUpdate = true;
       }
     });
   }, [scene, marsTexture]);
+
 
   useFrame(() => {
     if (modelRef.current) {
@@ -156,18 +158,23 @@ function MarsModel({ onHoverChange, onClick }: { onHoverChange?: (v: boolean) =>
     }
   });
 
-  return (
+    return (
     <group
       onPointerOver={(e) => {
         e.stopPropagation();
-        onHoverChange && onHoverChange(true);
+        if (onHoverChange) {
+          onHoverChange(true);
+        }
       }}
       onPointerOut={(e) => {
         e.stopPropagation();
-        onHoverChange && onHoverChange(false);
+        if (onHoverChange) {
+          onHoverChange(false);
+        }
       }}
       onClick={onClick}
     >
+
       <group ref={modelRef}>
         <primitive object={scene} dispose={null} />
       </group>
