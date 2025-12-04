@@ -1,7 +1,13 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence, useMotionValue, useAnimation, PanInfo } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useAnimation,
+  PanInfo,
+} from "framer-motion";
 
 type Option = { id: string | number; text: string };
 type Question = {
@@ -171,14 +177,12 @@ export default function QuestionsPage() {
   const [started, setStarted] = useState(false);
   const [sliderVal, setSliderVal] = useState(0);
 
-  // Fetch questions from FastAPI backend
   useEffect(() => {
     fetch("/api/questions")
       .then((r) => r.json())
       .then((data: Question[]) => {
         const list = data || [];
         setQuestions(list);
-        // initialize answers with undefined answers but correct question ids when available
         setAnswers(
           list.map((q) => ({
             question_id: q.id,
