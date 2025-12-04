@@ -116,13 +116,19 @@ function MercuryModel({ onHoverChange, onClick }: {onHoverChange?: (b: boolean)=
   const { scene } = useGLTF("/models/mercury/scene.gltf");
   const groupRef = useRef<THREE.Group>(null);
 
-  useEffect(() => {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        const materials = Array.isArray(child.material) ? child.material : [child.material];
-        materials.forEach((m: any) => {
+    useEffect(() => {
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        const materials = Array.isArray(mesh.material)
+          ? mesh.material
+          : [mesh.material];
+
+        materials.forEach((mat) => {
+          const m = mat as THREE.MeshStandardMaterial | null;
           if (!m) return;
           m.side = THREE.DoubleSide;
           m.transparent = false;
@@ -133,6 +139,7 @@ function MercuryModel({ onHoverChange, onClick }: {onHoverChange?: (b: boolean)=
         });
       }
     });
+
     const box = new THREE.Box3().setFromObject(scene);
     const size = new THREE.Vector3();
     const center = new THREE.Vector3();
@@ -143,20 +150,32 @@ function MercuryModel({ onHoverChange, onClick }: {onHoverChange?: (b: boolean)=
     scene.scale.setScalar(scale);
   }, [scene]);
 
+
   useFrame(() => {
     scene.rotation.y += 0.02;
   });
 
-  return (
+    return (
     <group
       ref={groupRef}
-      onPointerOver={e => { e.stopPropagation(); onHoverChange && onHoverChange(true); }}
-      onPointerOut={e => { e.stopPropagation(); onHoverChange && onHoverChange(false); }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        if (onHoverChange) {
+          onHoverChange(true);
+        }
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        if (onHoverChange) {
+          onHoverChange(false);
+        }
+      }}
       onClick={onClick}
     >
       <primitive object={scene} dispose={null} />
     </group>
   );
+
 }
 useGLTF.preload("/models/mercury/scene.gltf");
 
