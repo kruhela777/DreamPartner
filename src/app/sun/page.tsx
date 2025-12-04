@@ -144,22 +144,36 @@ function Constellations({ positions }: { positions: Float32Array }) {
 }
 
 // --- SunModel: passes onClick event to the 3D group ---
-function SunModel({ onHoverChange, onClick }: { onHoverChange: (h: boolean) => void, onClick?: () => void }) {
+function SunModel({
+  onHoverChange,
+  onClick,
+}: {
+  onHoverChange: (h: boolean) => void;
+  onClick?: () => void;
+}) {
   const { scene } = useGLTF("/models/sun/scene.gltf");
   const groupRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.castShadow = child.receiveShadow = true;
-        const mats = Array.isArray(child.material) ? child.material : [child.material];
-        mats.forEach((m: any) => {
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        const materials = Array.isArray(mesh.material)
+          ? mesh.material
+          : [mesh.material];
+
+        materials.forEach((mat) => {
+          const m = mat as THREE.MeshStandardMaterial | null;
           if (!m) return;
           m.side = THREE.DoubleSide;
           m.transparent = false;
         });
       }
     });
+
     const box = new THREE.Box3().setFromObject(scene);
     const center = new THREE.Vector3();
     box.getCenter(center);
@@ -179,16 +193,29 @@ function SunModel({ onHoverChange, onClick }: { onHoverChange: (h: boolean) => v
   return (
     <group
       ref={groupRef}
-      onPointerOver={e => { e.stopPropagation(); onHoverChange(true); }}
-      onPointerOut={e => { e.stopPropagation(); onHoverChange(false); }}
-      onPointerDown={e => { e.stopPropagation(); onHoverChange(true); }}
-      onPointerUp={e => { e.stopPropagation(); onHoverChange(false); }}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        onHoverChange(true);
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        onHoverChange(false);
+      }}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+        onHoverChange(true);
+      }}
+      onPointerUp={(e) => {
+        e.stopPropagation();
+        onHoverChange(false);
+      }}
       onClick={onClick}
     >
       <primitive object={scene} dispose={null} />
     </group>
   );
 }
+
 useGLTF.preload("/models/sun/scene.gltf");
 
 // --- TypewriterText Helper ---
