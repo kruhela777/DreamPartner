@@ -115,33 +115,40 @@ function VenusModel({ onHoverChange, onClick }: { onHoverChange?: (b: boolean) =
   const groupRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
-    scene.traverse((child: any) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        const mats = Array.isArray(child.material) ? child.material : [child.material];
-        mats.forEach((m: any) => {
-          if (!m) return;
-          m.side = THREE.DoubleSide;
-          m.transparent = false;
-          m.opacity = 1;
-          m.color?.set("#ffc9ae");
-          m.metalness = 0.22;
-          m.roughness = 0.45;
-        });
-      }
-    });
-    const box = new THREE.Box3().setFromObject(scene);
-    const size = new THREE.Vector3();
-    const center = new THREE.Vector3();
-    box.getSize(size);
-    box.getCenter(center);
-    scene.position.sub(center);
-    if (groupRef.current) {
-      const scale = 2 / Math.max(size.x, size.y, size.z, 1);
-      groupRef.current.scale.setScalar(scale);
+  scene.traverse((child) => {
+    if ((child as THREE.Mesh).isMesh) {
+      const mesh = child as THREE.Mesh;
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+
+      const materials = Array.isArray(mesh.material)
+        ? mesh.material
+        : [mesh.material];
+
+      materials.forEach((mat) => {
+        const m = mat as THREE.MeshStandardMaterial | null;
+        if (!m) return;
+        m.side = THREE.DoubleSide;
+        m.transparent = false;
+        m.opacity = 1;
+        m.color.set("#ffc9ae");
+        m.metalness = 0.22;
+        m.roughness = 0.45;
+      });
     }
-  }, [scene]);
+  });
+
+  const box = new THREE.Box3().setFromObject(scene);
+  const size = new THREE.Vector3();
+  const center = new THREE.Vector3();
+  box.getSize(size);
+  box.getCenter(center);
+  scene.position.sub(center);
+  if (groupRef.current) {
+    const scale = 2 / Math.max(size.x, size.y, size.z, 1);
+    groupRef.current.scale.setScalar(scale);
+  }
+}, [scene]);
 
   useFrame(() => {
     if (groupRef.current) {
