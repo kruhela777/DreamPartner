@@ -7,13 +7,15 @@ import { FaLinkedin } from "react-icons/fa";
 
 // --- Heart Cursor ---
 function HeartCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement | null>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [smooth, setSmooth] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handle = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
+    const handle = (e: MouseEvent) =>
+      setPos({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handle);
+
     let frame: number;
     const animate = () => {
       setSmooth((prev) => ({
@@ -28,6 +30,7 @@ function HeartCursor() {
       frame = requestAnimationFrame(animate);
     };
     animate();
+
     return () => {
       window.removeEventListener("mousemove", handle);
       cancelAnimationFrame(frame);
@@ -56,25 +59,27 @@ function HeartCursor() {
              C32,4.8,27.3,0,23.6,0z"
           fill="#ff6dae"
           stroke="#e23e7c"
-          strokeWidth="1.3"
+          strokeWidth={1.3}
         />
-        <ellipse cx="10" cy="8" rx="4" ry="1.2" fill="#fff" opacity=".50" />
+        <ellipse cx={10} cy={8} rx={4} ry={1.2} fill="#fff" opacity={0.5} />
       </svg>
     </div>
   );
 }
 
 // Floating Heart with Glow and Upwards Motion
-const FloatingHeart = ({
-  delay,
-  left,
-  size,
-  color,
-}: {
+type FloatingHeartProps = {
   delay: number;
   left: string;
   size: string;
   color: string;
+};
+
+const FloatingHeart: React.FC<FloatingHeartProps> = ({
+  delay,
+  left,
+  size,
+  color,
 }) => (
   <motion.div
     initial={{ y: "110vh", opacity: 0, scale: 0.7 }}
@@ -118,16 +123,18 @@ const FloatingHeart = ({
 );
 
 // Gentle Twinkling Sparkle Accent
-const Sparkle = ({
-  left,
-  top,
-  size,
-  delay = 0,
-}: {
+type SparkleProps = {
   left: string;
   top: string;
   size: string;
   delay?: number;
+};
+
+const Sparkle: React.FC<SparkleProps> = ({
+  left,
+  top,
+  size,
+  delay = 0,
 }) => (
   <motion.div
     className="fixed pointer-events-none"
@@ -171,8 +178,13 @@ type TeamMember = {
   linkedin: string;
 };
 
-function TeamCard({ member }: { member: TeamMember }) {
+type TeamCardProps = {
+  member: TeamMember;
+};
+
+const TeamCard: React.FC<TeamCardProps> = ({ member }) => {
   const [flipped, setFlipped] = useState(false);
+
   return (
     <motion.div
       className="relative cursor-pointer select-none group"
@@ -341,7 +353,7 @@ function TeamCard({ member }: { member: TeamMember }) {
       </AnimatePresence>
     </motion.div>
   );
-}
+};
 
 export default function AboutUsPage() {
   const [hearts, setHearts] = useState<
