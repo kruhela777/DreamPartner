@@ -1,9 +1,10 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
+import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaLinkedin } from "react-icons/fa";
+
 
 // --- Heart Cursor ---
 function HeartCursor() {
@@ -183,12 +184,15 @@ function TeamCard({ member }) {
               transition={{ type: "spring", stiffness: 160, damping: 13 }}
               className="rounded-full border-4 border-pink-100/50 bg-white mb-3 shadow-xl"
             >
-              <img
-                src={member.img}
-                alt={member.name}
-                className="w-32 h-32 aspect-square rounded-full object-cover"
-                draggable={false}
-              />
+              <Image
+  src={member.img}
+  alt={member.name}
+  width={128}
+  height={128}
+  className="w-32 h-32 aspect-square rounded-full object-cover"
+  draggable={false}
+/>
+
             </motion.div>
             <motion.div
               initial={{ y: 18, opacity: 0, scale: 0.7 }}
@@ -253,13 +257,16 @@ function TeamCard({ member }) {
 
   {/* Profile + Details */}
   <div className="z-10 px-2 flex flex-col items-center flex-grow">
-    <img
-      src={member.img}
-      alt={member.name}
-      className="w-24 h-24 rounded-full border-4 border-pink-200 object-cover shadow-md mb-2"
-      draggable={false}
-      loading="lazy"
-    />
+    <Image
+  src={member.img}
+  alt={member.name}
+  width={96}
+  height={96}
+  className="w-24 h-24 rounded-full border-4 border-pink-200 object-cover shadow-md mb-2"
+  draggable={false}
+  loading="lazy"
+/>
+
     <h2 className="text-pink-500 font-bold text-xl mb-1">{member.name}</h2>
     <span className="text-pink-300 font-medium text-base">{member.role}</span>
     <motion.div
