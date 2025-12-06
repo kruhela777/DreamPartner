@@ -5,9 +5,8 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   if (!BACKEND_URL) {
-    console.error("BACKEND_URL is not defined");
     return NextResponse.json(
-      { error: "Backend URL not configured" },
+      { error: "BACKEND_URL is not defined" },
       { status: 500 }
     );
   }
@@ -18,15 +17,20 @@ export async function GET() {
     });
 
     if (!res.ok) {
-      throw new Error(`Backend error: ${res.status}`);
+      const text = await res.text();
+      console.error("Backend /questions error:", res.status, text);
+      return NextResponse.json(
+        { error: "Backend error", status: res.status },
+        { status: 500 }
+      );
     }
 
-    const data = await res.json();
+    const data = await res.json(); // expects the questions array
     return NextResponse.json(data);
   } catch (err) {
     console.error("Questions API error:", err);
     return NextResponse.json(
-      { error: "Failed to fetch questions" },
+      { error: "Failed to fetch questions", detail: String(err) },
       { status: 500 }
     );
   }

@@ -180,9 +180,10 @@ export default function QuestionsPage() {
   useEffect(() => {
     fetch("/api/questions")
       .then((r) => r.json())
-      .then((data: Question[]) => {
-        const list = data || [];
-        setQuestions(list);
+        .then((data: Question[] | any) => {
+    const list: Question[] = Array.isArray(data) ? data : [];
+    setQuestions(list);
+
         setAnswers(
           list.map((q) => ({
             question_id: q.id,
