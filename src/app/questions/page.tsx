@@ -178,26 +178,27 @@ export default function QuestionsPage() {
   const [sliderVal, setSliderVal] = useState(0);
 
   useEffect(() => {
-    fetch("/api/questions")
-      .then((r) => r.json())
-        .then((data: Question[] | any) => {
-    const list: Question[] = Array.isArray(data) ? data : [];
-    setQuestions(list);
+  fetch("/api/questions")
+    .then((r) => r.json() as Promise<Question[]>)   // tell TS what comes back
+    .then((data) => {
+      const list: Question[] = Array.isArray(data) ? data : [];
+      setQuestions(list);
 
-        setAnswers(
-          list.map((q) => ({
-            question_id: q.id,
-            answer: undefined,
-          }))
-        );
-      })
-      .catch((err) => {
-        console.error("Frontend fetch error:", err);
-        setQuestions([]);
-        setAnswers([]);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+      setAnswers(
+        list.map((q) => ({
+          question_id: q.id,
+          answer: undefined,
+        }))
+      );
+    })
+    .catch((err) => {
+      console.error("Frontend fetch error:", err);
+      setQuestions([]);
+      setAnswers([]);
+    })
+    .finally(() => setLoading(false));
+}, []);
+
 
   useEffect(() => {
     if (!questions[current]) return;
