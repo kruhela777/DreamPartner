@@ -10,7 +10,10 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Extend Next.js recommended configs
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+
+  // Your custom config
   {
     ignores: [
       "node_modules/**",
@@ -19,6 +22,11 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+
+    rules: {
+      // DISABLE this warning globally
+      "@next/next/no-img-element": "off",
+    },
   },
 ];
 

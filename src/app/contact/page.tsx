@@ -5,7 +5,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaLinkedin } from "react-icons/fa";
 
-
 // --- Heart Cursor ---
 function HeartCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -17,7 +16,7 @@ function HeartCursor() {
     window.addEventListener("mousemove", handle);
     let frame: number;
     const animate = () => {
-      setSmooth(prev => ({
+      setSmooth((prev) => ({
         x: prev.x + (pos.x - prev.x) * 0.2,
         y: prev.y + (pos.y - prev.y) * 0.2,
       }));
@@ -53,8 +52,8 @@ function HeartCursor() {
       <svg width={28} height={28} viewBox="0 0 32 29.6">
         <path
           d="M23.6,0c-2.6,0-5,1.4-6.6,3.6C15.4,1.4,13,0,10.4,0C4.7,0,0,4.8,0,10.4
-            c0,5.3,4.3,9.6,11,15.2l4.9,3.8l4.9-3.8c6.7-5.6,11-9.8,11-15.2
-            C32,4.8,27.3,0,23.6,0z"
+             c0,5.3,4.3,9.6,11,15.2l4.9,3.8l4.9-3.8c6.7-5.6,11-9.8,11-15.2
+             C32,4.8,27.3,0,23.6,0z"
           fill="#ff6dae"
           stroke="#e23e7c"
           strokeWidth="1.3"
@@ -64,8 +63,19 @@ function HeartCursor() {
     </div>
   );
 }
+
 // Floating Heart with Glow and Upwards Motion
-const FloatingHeart = ({ delay, left, size, color }) => (
+const FloatingHeart = ({
+  delay,
+  left,
+  size,
+  color,
+}: {
+  delay: number;
+  left: string;
+  size: string;
+  color: string;
+}) => (
   <motion.div
     initial={{ y: "110vh", opacity: 0, scale: 0.7 }}
     animate={{
@@ -108,7 +118,17 @@ const FloatingHeart = ({ delay, left, size, color }) => (
 );
 
 // Gentle Twinkling Sparkle Accent
-const Sparkle = ({ left, top, size, delay = 0 }) => (
+const Sparkle = ({
+  left,
+  top,
+  size,
+  delay = 0,
+}: {
+  left: string;
+  top: string;
+  size: string;
+  delay?: number;
+}) => (
   <motion.div
     className="fixed pointer-events-none"
     style={{
@@ -142,7 +162,16 @@ const Sparkle = ({ left, top, size, delay = 0 }) => (
 const CARD_HEIGHT = 485;
 const CARD_WIDTH = 312;
 
-function TeamCard({ member }) {
+type TeamMember = {
+  name: string;
+  role: string;
+  desc: string;
+  fun: string;
+  img: string;
+  linkedin: string;
+};
+
+function TeamCard({ member }: { member: TeamMember }) {
   const [flipped, setFlipped] = useState(false);
   return (
     <motion.div
@@ -185,14 +214,13 @@ function TeamCard({ member }) {
               className="rounded-full border-4 border-pink-100/50 bg-white mb-3 shadow-xl"
             >
               <Image
-  src={member.img}
-  alt={member.name}
-  width={128}
-  height={128}
-  className="w-32 h-32 aspect-square rounded-full object-cover"
-  draggable={false}
-/>
-
+                src={member.img}
+                alt={member.name}
+                width={128}
+                height={128}
+                className="w-32 h-32 aspect-square rounded-full object-cover"
+                draggable={false}
+              />
             </motion.div>
             <motion.div
               initial={{ y: 18, opacity: 0, scale: 0.7 }}
@@ -223,91 +251,92 @@ function TeamCard({ member }) {
           </motion.div>
         ) : (
           // Card Back
-          // Card Back
-<motion.div
-  key="back"
-  initial={{ rotateY: -90, opacity: 0 }}
-  animate={{ rotateY: 0, opacity: 1 }}
-  exit={{ rotateY: 60, opacity: 0 }}
-  transition={{ duration: 0.52, ease: "backOut", type: "tween" }}
-  className="absolute w-full h-full bg-gradient-to-br from-pink-100/80 to-purple-50/80 
-             border border-pink-100/25 rounded-3xl font-sans flex flex-col 
-             pt-7 shadow-[0_8px_32px_0_#ffd6ee33] overflow-hidden"
-  style={{
-    backfaceVisibility: "hidden",
-    transformStyle: "preserve-3d",
-  }}
->
-  {/* Heart doodle */}
-  <motion.div
-    className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden pointer-events-none"
-    initial={{ scale: 1, opacity: 0.15 }}
-    animate={{ scale: [1, 1.1, 1.05, 1], opacity: 0.16 }}
-    transition={{
-      duration: 4,
-      repeat: Infinity,
-      repeatType: "mirror",
-      type: "tween",
-    }}
-  >
-    <span className="text-[12rem] md:text-[14rem] text-pink-100 select-none pointer-events-none">
-      ❤️
-    </span>
-  </motion.div>
+          <motion.div
+            key="back"
+            initial={{ rotateY: -90, opacity: 0 }}
+            animate={{ rotateY: 0, opacity: 1 }}
+            exit={{ rotateY: 60, opacity: 0 }}
+            transition={{ duration: 0.52, ease: "backOut", type: "tween" }}
+            className="absolute w-full h-full bg-gradient-to-br from-pink-100/80 to-purple-50/80 
+                   border border-pink-100/25 rounded-3xl font-sans flex flex-col 
+                   pt-7 shadow-[0_8px_32px_0_#ffd6ee33] overflow-hidden"
+            style={{
+              backfaceVisibility: "hidden",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {/* Heart doodle */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden pointer-events-none"
+              initial={{ scale: 1, opacity: 0.15 }}
+              animate={{ scale: [1, 1.1, 1.05, 1], opacity: 0.16 }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                repeatType: "mirror",
+                type: "tween",
+              }}
+            >
+              <span className="text-[12rem] md:text-[14rem] text-pink-100 select-none pointer-events-none">
+                ❤️
+              </span>
+            </motion.div>
 
-  {/* Profile + Details */}
-  <div className="z-10 px-2 flex flex-col items-center flex-grow">
-    <Image
-  src={member.img}
-  alt={member.name}
-  width={96}
-  height={96}
-  className="w-24 h-24 rounded-full border-4 border-pink-200 object-cover shadow-md mb-2"
-  draggable={false}
-  loading="lazy"
-/>
+            {/* Profile + Details */}
+            <div className="z-10 px-2 flex flex-col items-center flex-grow">
+              <Image
+                src={member.img}
+                alt={member.name}
+                width={96}
+                height={96}
+                className="w-24 h-24 rounded-full border-4 border-pink-200 object-cover shadow-md mb-2"
+                draggable={false}
+                loading="lazy"
+              />
+              <h2 className="text-pink-500 font-bold text-xl mb-1">
+                {member.name}
+              </h2>
+              <span className="text-pink-300 font-medium text-base">
+                {member.role}
+              </span>
+              <motion.div
+                className="w-5 h-5 mt-1 text-pink-300"
+                animate={{ scale: [1, 1.2, 1], rotate: [0, 8, -8, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 1.8,
+                  repeatType: "reverse",
+                  type: "tween",
+                }}
+              >
+                💖
+              </motion.div>
+              <hr className="h-[2px] w-16 bg-pink-200 rounded-full border-0 my-1 opacity-70" />
+              <p
+                className="mt-1 text-sm px-2 text-pink-700/90 text-center font-normal"
+                style={{ whiteSpace: "pre-line" }}
+              >
+                {member.desc}
+              </p>
+              <p className="mt-2 px-4 italic text-sm text-pink-400 text-center font-normal">
+                {member.fun}
+              </p>
+            </div>
 
-    <h2 className="text-pink-500 font-bold text-xl mb-1">{member.name}</h2>
-    <span className="text-pink-300 font-medium text-base">{member.role}</span>
-    <motion.div
-      className="w-5 h-5 mt-1 text-pink-300"
-      animate={{ scale: [1, 1.2, 1], rotate: [0, 8, -8, 0] }}
-      transition={{
-        repeat: Infinity,
-        duration: 1.8,
-        repeatType: "reverse",
-        type: "tween",
-      }}
-    >
-      💖
-    </motion.div>
-    <hr className="h-[2px] w-16 bg-pink-200 rounded-full border-0 my-1 opacity-70" />
-    <p
-      className="mt-1 text-sm px-2 text-pink-700/90 text-center font-normal"
-      style={{ whiteSpace: "pre-line" }}
-    >
-      {member.desc}
-    </p>
-    <p className="mt-2 px-4 italic text-sm text-pink-400 text-center font-normal">
-      {member.fun}
-    </p>
-  </div>
-
-  {/* LinkedIn button pinned bottom */}
-  <div className="z-10 mt-auto mb-4 flex justify-center">
-    <a
-      href={member.linkedin}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center justify-center gap-2 text-pink-400 hover:text-pink-500 transition text-base font-semibold"
-      onClick={(e) => e.stopPropagation()}
-      tabIndex={-1}
-    >
-      <FaLinkedin size={20} /> Connect
-    </a>
-  </div>
-</motion.div>
-
+            {/* LinkedIn button pinned bottom */}
+            <div className="z-10 mt-auto mb-4 flex justify-center">
+              <a
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 text-pink-400 hover:text-pink-500 transition text-base font-semibold"
+                onClick={(e) => e.stopPropagation()}
+                tabIndex={-1}
+              >
+                <FaLinkedin size={20} /> Connect
+              </a>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.div>
@@ -315,8 +344,12 @@ function TeamCard({ member }) {
 }
 
 export default function AboutUsPage() {
-  const [hearts, setHearts] = useState([]);
-  const [sparkles, setSparkles] = useState([]);
+  const [hearts, setHearts] = useState<
+    { left: string; size: string; color: string }[]
+  >([]);
+  const [sparkles, setSparkles] = useState<
+    { left: string; top: string; size: string; delay: number }[]
+  >([]);
 
   useEffect(() => {
     // Hearts
@@ -330,7 +363,7 @@ export default function AboutUsPage() {
           "rgba(255,188,235,0.37)",
           "rgba(255,153,211,0.27)",
           "rgba(255,220,242,0.41)",
-        ][Math.floor(Math.random() * 5)],
+        ][Math.floor(Math.random() * 5)] as string,
       }))
     );
 
@@ -344,7 +377,8 @@ export default function AboutUsPage() {
       }))
     );
   }, []);
-  const team = [
+
+  const team: TeamMember[] = [
     {
       name: "Ishant Singh",
       role: "🐣 The Cutie Pie with a Wild Mind",
@@ -381,6 +415,7 @@ export default function AboutUsPage() {
     <div className="relative min-h-screen flex flex-col text-pink-600 py-16 px-2 overflow-hidden bg-gradient-to-br from-pink-100 via-violet-100 to-pink-200">
       {/* Custom animated cursor */}
       <HeartCursor />
+
       {/* Hearts and Sparkles */}
       {hearts.map((heart, i) => (
         <FloatingHeart

@@ -27,8 +27,8 @@ export async function POST(req: Request) {
 
     const data = await res.json();
     return NextResponse.json(data);
-  } catch (err) {
-    console.error("Analyze API error:", err);
+  } catch (_err) {
+    console.error("Analyze API error");
     return NextResponse.json(
       { error: "Failed to analyze" },
       { status: 500 }
