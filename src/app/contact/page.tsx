@@ -334,7 +334,6 @@ export default function AboutUsPage() {
       }))
     );
   }, []);
-
   const team = [
     {
       name: "Ishant Singh",
@@ -370,6 +369,8 @@ export default function AboutUsPage() {
 
   return (
     <div className="relative min-h-screen flex flex-col text-pink-600 py-16 px-2 overflow-hidden bg-gradient-to-br from-pink-100 via-violet-100 to-pink-200">
+      {/* Custom animated cursor */}
+      <HeartCursor />
       {/* Hearts and Sparkles */}
       {hearts.map((heart, i) => (
         <FloatingHeart
