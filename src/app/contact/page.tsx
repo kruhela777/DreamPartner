@@ -1,7 +1,10 @@
 "use client";
-import React, {useRef, useState, useEffect } from "react";
+/* eslint-disable @next/next/no-img-element */
+
+import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaLinkedin } from "react-icons/fa";
+
 // --- Heart Cursor ---
 function HeartCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
