@@ -179,9 +179,9 @@ export default function QuestionsPage() {
 
   useEffect(() => {
   fetch("/api/questions")
-    .then((r) => r.json() as Promise<Question[]>)   // tell TS what comes back
-    .then((data) => {
-      const list: Question[] = Array.isArray(data) ? data : [];
+    .then((r) => r.json())
+    .then((data: unknown) => {
+      const list = Array.isArray(data) ? (data as Question[]) : [];
       setQuestions(list);
 
       setAnswers(
@@ -198,6 +198,7 @@ export default function QuestionsPage() {
     })
     .finally(() => setLoading(false));
 }, []);
+
 
 
   useEffect(() => {
