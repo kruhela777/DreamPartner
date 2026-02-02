@@ -122,23 +122,6 @@ Our matching system considers:
 4. **Unlock connections** naturally through shared success
 5. **Continue the conversation** with built-in chat after gameplay
 
-### For Developers:
-```bash
-# Clone the repository
-git clone https://github.com/kruhela777/DreamPartner.git
-
-# Install dependencies
-cd DreamPartner
-npm install
-
-# Set up environment variables
-cp .env.example .env
-# Configure your environment variables
-
-# Start the development server
-npm run dev
-```
-
 ## 🛡️ Privacy & Safety
 
 - **Consent-based profiling**: All analysis is opt-in and transparent
