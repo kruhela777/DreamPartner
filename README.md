@@ -149,6 +149,13 @@ Our matching system considers:
 <img width="625" height="1026" alt="late night meetings" src="https://github.com/user-attachments/assets/62a89b34-2b86-4bc0-9315-c232989f0d32" />
 <img width="1919" height="1079" alt="errors and fun" src="https://github.com/user-attachments/assets/aa401921-102a-4e57-bccb-fbdd14e26fdd" />
 
+## 🎥 Demo Video
+
+<p align="center">
+  <a href="https://res.cloudinary.com/dztthidxb/video/upload/v1766933725/DREAMPARTNER_1_hvlhn9.mp4">
+    <img width="596" height="277" alt="Screenshot 2025-09-15 182810" src="https://github.com/user-attachments/assets/e4e0f773-ec88-43c0-9efc-a1a2ef98a7b2" />
+  </a>
+</p>
 
 > **Note to selectors**: We have put in a great deal of hard work and many sleepless nights building this project, and have learnt a lot from this project. We would want to thank you for giving this opportunity, regardless of if we win or not :)
 
