@@ -176,7 +176,7 @@ export default function QuestionsPage() {
   const [loading, setLoading] = useState(true);
   const [started, setStarted] = useState(false);
   const [sliderVal, setSliderVal] = useState(0);
-
+ 
   useEffect(() => {
   fetch("/api/questions")
     .then((r) => r.json())

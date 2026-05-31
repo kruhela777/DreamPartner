@@ -6,7 +6,7 @@ import random, json, logging
 from typing import List, Any, Dict, Optional
 
 # import your core implementation
-from core import PADCoreEngine, PADDelta
+from .core import PADCoreEngine, PADDelta
 
 logger = logging.getLogger("core")
 app = FastAPI()
